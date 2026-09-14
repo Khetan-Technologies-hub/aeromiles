@@ -9,9 +9,9 @@ A professional content/marketing website for **Aeromiles** — an Indian company
 
 ## Architecture
 
-**Stack:** **Next.js (App Router) + React + TypeScript** + Tailwind CSS, content as **in-repo Markdown/MDX** (typed frontmatter) → deployed to **Vercel**; contact forms via a **Next.js Route Handler + Resend**. Analytics: GA4. Package manager: **npm**. See `docs/PRD.md` §4 for the full architecture, sitemap, and content-model diagrams.
+**Stack:** **Next.js (App Router) + React + TypeScript** + Tailwind CSS, **static export** (`output: 'export'`), content as **in-repo Markdown/MDX** (typed frontmatter) → deployed to the client's **Hostinger** hosting (upload `out/` to `public_html`); contact form via **Web3Forms** (or a PHP+SMTP mailer). Analytics: GA4. Package manager: **npm**. See `docs/PRD.md` §4 for the full architecture and content-model diagrams.
 
-**Data flow:** Content lives as typed Markdown/MDX under `content/` → statically generated at build (SSG) → served from Vercel's edge. Form submissions POST to `/api/contact` (Route Handler) → validated → emailed via Resend. No database.
+**Data flow:** Content lives as typed Markdown/MDX under `content/` → statically generated at build into `out/` → uploaded to Hostinger `public_html` → served as plain static files. The contact form POSTs directly to Web3Forms (or a PHP mailer on Hostinger) → email. **No SSR, no Node server, no API routes, no database** — shared hosting can't run them.
 
 **Expected layout** (App Router — once code lands, keep to this):
 ```
@@ -35,20 +35,20 @@ public/                  # static assets (favicon, robots poster, hero video, og
 ```
 
 **Rules a developer must follow:**
-- **Server Components by default.** Keep components server-rendered for SEO/perf; add `"use client"` only where interaction/motion needs it. Never make a whole page a client component to animate one section.
-- **TypeScript strict, no `any`.** Type props, content, and API payloads. Content shape is validated with **zod** in `src/lib`.
+- **Static export — no server code.** The site builds with `output: 'export'`. Do **not** add API routes, Route Handlers, Server Actions, middleware, ISR, or any code that needs a running Node server — none of it works on the static host. Server Components are fine (they render at build); prefer them and add `"use client"` only where interaction/motion needs it.
+- **TypeScript strict, no `any`.** Type props and content. Content shape is validated with **zod** in `src/lib`.
 - **Content is data, not markup.** Products, team, labs, defence capabilities, testimonials come from `content/` (parsed + zod-validated) — never hardcode this content into components.
 - **Brand tokens, not magic values.** Navy `#0e2a4d`, blue `#1b8ee6`, saffron `#ff7a1a`, green `#1f9e4a`. Define once in the Tailwind theme / CSS variables; reference tokens everywhere.
 - **Motion follows `Aeromiles_Animation_Spec.md`.** Framer Motion / IntersectionObserver for reveals; Swiper for carousels; CountUp for stats; GSAP only where those genuinely can't. **Every animation needs a `prefers-reduced-motion` fallback**, animates only `opacity`/`transform` (no layout shift), and reveals **once**. Motion lives in small client components, not whole pages.
 - **Defence section stays restrained** — subtle reveals only; no publishing of classified/export-controlled detail (general capability copy only).
-- **Images optimized** via `next/image` (WebP/AVIF), lazy-loaded; hero video muted + `playsinline` + poster fallback, mobile-conscious.
+- **Images:** `next/image` runs with `unoptimized: true` (no image server on static hosting) — so provide **pre-optimized WebP/AVIF** assets, sized correctly, lazy-loaded; hero video muted + `playsinline` + poster fallback, mobile-conscious.
 - **Mobile-first & accessible.** WCAG 2.1 AA: semantic headings, alt text, keyboard-operable nav/carousels, visible focus. Verified from ~360px up.
-- **SEO on every page:** use the Next **Metadata API** for unique `<title>` + description + Open Graph; generate `sitemap.ts` and `robots.ts`.
+- **SEO on every page:** use the Next **Metadata API** for unique `<title>` + description + Open Graph; `sitemap.ts` and `robots.ts` emit static files at export.
 - **Placeholders are expected in v1.** Use sample data/styled placeholders where real content (photos, specs, bios, defence copy, footage) isn't delivered yet — keep it obviously swappable and note it in the handoff.
 
 ## Key rules
 
-- **No secrets in the repo or in this file.** Resend API key, form recipient email, and GA4 measurement ID live in **environment variables / Vercel's dashboard** (`process.env`, server-side only for secrets) — never committed. `.env.local` is gitignored.
+- **No secrets in the repo or in this file.** The Web3Forms **access key** is domain-restricted and public-safe (it may live in `NEXT_PUBLIC_*`). If a PHP+SMTP mailer is used instead, its SMTP credentials live in server-side PHP config on Hostinger, never in this repo. GA4 measurement ID is public. `.env.local` is gitignored.
 - **Never publish classified or export-controlled defence content.** When a ticket's content is unclear on this, stop and ask.
 - **No PII in URLs/query strings.** Forms POST; GA4 configured with appropriate consent handling.
 - **Don't add e-commerce, auth/login, a CMS admin, i18n, or a blog** without a PRD change — they are explicit v1 non-goals.
@@ -73,4 +73,4 @@ public/                  # static assets (favicon, robots poster, hero video, og
 - **`prototype/`** — parked WIP homepage; visual reference for the motion patterns only, **not** the production build.
 - **`Logo/`** — brand assets (wordmark, emblem, lockups).
 - Reference sites (motion inspiration): [aerobay.in](https://aerobay.in/), [vayumandalinnovations.com](https://www.vayumandalinnovations.com/).
-- External systems: **Vercel** (hosting), **Resend** (transactional email for forms), **Google Analytics 4**, client-owned domain (likely `aeromiles.in` — to confirm).
+- External systems: **Hostinger** (client's hosting + domain — static upload to `public_html`), **Web3Forms** (or PHP+SMTP) for the contact form, **Google Analytics 4**. Domain likely `aeromiles.in` — to confirm.

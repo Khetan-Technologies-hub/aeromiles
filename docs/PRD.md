@@ -67,14 +67,15 @@ No authenticated roles exist *on the site itself* in v1.
 
 | Layer | Choice | Notes |
 |---|---|---|
-| Framework | **Next.js (App Router) + React + TypeScript** | SSG for marketing pages; real HTML for SEO; `next/image` optimization; TS strict |
+| Framework | **Next.js (App Router) + React + TypeScript**, **static export** (`output: 'export'`) | Builds to plain static HTML/CSS/JS in `out/`; real HTML for SEO; TS strict. No SSR/API routes (shared hosting can't run Node) |
 | Styling | **Tailwind CSS** | Utility-first; brand tokens in Tailwind theme / CSS variables |
-| Content | **In-repo Markdown/MDX** with typed frontmatter (gray-matter/Contentlayer + zod) | Products, labs, defence, team, testimonials as local content — read at build; no CMS in v1 |
+| Content | **In-repo Markdown/MDX** with typed frontmatter (gray-matter/Contentlayer + zod) | Read at build → baked into static pages; no CMS in v1 |
+| Images | **`next/image` with `unoptimized: true`** + pre-optimized WebP/AVIF assets | Static export has no image server; assets optimized at build/authoring time |
 | Motion | **Framer Motion** for React reveals/transitions + IntersectionObserver; **Swiper** (carousels), **CountUp** (stats), optional **Vanilla-Tilt**; **GSAP** only where needed | See `Aeromiles_Animation_Spec.md` |
-| Forms | **Next.js Route Handler + Resend** *(recommended default — confirm at deploy)* | Serverless API route emails submissions via Resend; validate + spam-protect |
-| Hosting | **Vercel** *(recommended default)* | Natural home for Next.js; Netlify is a viable alternative |
+| Forms | **Web3Forms** *(recommended)* or a **PHP + SMTP mailer** on Hostinger | Static site can't hold a secret server key. Web3Forms = free hosted endpoint (domain-restricted access key). PHP+SMTP keeps it self-hosted using the Hostinger mailbox |
+| Hosting | **Hostinger** (client's) — shared hosting: upload `out/` to `public_html` via hPanel File Manager / FTP | If the plan turns out to be VPS/Node, full SSR + a Resend API route become possible instead |
 | Analytics | **Google Analytics 4** | Add cookie/consent handling per privacy note |
-| Domain | **Client-owned** (likely `aeromiles.in` — to confirm) | DNS pointed at host at launch |
+| Domain | **Client-owned, on Hostinger** (likely `aeromiles.in` — to confirm) | Already with the host; point the domain at the hosting at launch |
 
 ### 4.2 High-level architecture
 
@@ -85,13 +86,12 @@ flowchart TD
         SRC["Next.js + React + TS<br/>+ Tailwind"]
         ASSET["Optimized images<br/>(next/image) + video"]
     end
-    Repo -->|build| CI["Vercel build pipeline"]
-    CI -->|SSG output| CDN["Vercel edge / CDN"]
-    Visitor(["Visitor"]) -->|HTTPS| CDN
-    Visitor -->|submits form| API["Next Route Handler<br/>/api/contact"]
-    API -->|send| RESEND["Resend"]
-    RESEND -->|notification| EMAIL["Aeromiles inbox"]
-    CDN -.->|page views| GA["Google Analytics 4"]
+    Repo -->|npm run build| OUT["Static export (out/)"]
+    OUT -->|upload via hPanel/FTP| HOST["Hostinger public_html"]
+    Visitor(["Visitor"]) -->|HTTPS| HOST
+    Visitor -->|submits form| FORM["Web3Forms endpoint<br/>(or PHP+SMTP mailer)"]
+    FORM -->|notification| EMAIL["Aeromiles inbox"]
+    HOST -.->|page views| GA["Google Analytics 4"]
 ```
 
 ### 4.3 Information architecture / sitemap
@@ -196,7 +196,8 @@ Hero (**background flight video**, muted autoplay + poster fallback; placeholder
 
 | # | Decision | Owner | Default / status |
 |---|---|---|---|
-| O1 | Confirm hosting + forms = Vercel + Next Route Handler + Resend | Manager | Recommended default; confirm at deploy |
+| O1 | Confirm form transport = Web3Forms vs PHP+SMTP mailer | Manager | Web3Forms recommended; PHP+SMTP if fully self-hosted preferred |
+| O1b | Confirm Hostinger plan type (shared vs VPS) + Node.js availability | Client | Assumed shared/static; if VPS/Node, SSR becomes an option |
 | O2 | Exact domain name | Client | Client-owned; likely `aeromiles.in` — confirm |
 | O3 | Form recipient email address(es) | Client | **Required before launch** |
 | O4 | Real flight footage for hero video | Client | Placeholder until supplied |
@@ -218,7 +219,9 @@ Hero (**background flight video**, muted autoplay + poster fallback; placeholder
 | 2026-09-14 | Primary metric = **qualified inquiries**; credibility co-equal | Matches brief objectives |
 | 2026-09-14 | ~~Astro + Tailwind~~ → **Next.js (App Router) + React + TypeScript + Tailwind** | Manager elected React/TS; Next.js chosen over Vite SPA for SEO (SSG, real HTML, metadata) — matches vayumandalinnovations.com |
 | 2026-09-14 | **In-repo Markdown/MDX** with typed frontmatter (gray-matter/Contentlayer + zod) | Keeps content as data, no CMS in v1 (framework changed from Astro Content Collections to Next-compatible MDX) |
-| 2026-09-14 | ~~Netlify + Netlify Forms~~ → **Vercel + Next Route Handler + Resend** (recommended default) | Natural Next.js host; serverless API route for forms; confirm at deploy (O1) |
+| 2026-09-14 | ~~Netlify + Netlify Forms~~ → ~~Vercel + Resend~~ → **Hostinger (client's) + Next.js static export** | Client hosts on Hostinger (domain already there); shared hosting can't run Node, so static export (`output: 'export'`), uploaded to `public_html` |
+| 2026-09-14 | Forms via **Web3Forms** (recommended) or **PHP+SMTP mailer** — not Resend | Static site has no server to hold a secret key; Web3Forms is a hosted endpoint, PHP+SMTP a self-hosted alternative on Hostinger (O1) |
+| 2026-09-14 | `next/image` runs with **`unoptimized: true`** + pre-optimized assets | Static export has no image-optimization server |
 | 2026-09-14 | Domain is **client-owned/purchased** | Point DNS at host at launch (O2) |
 | 2026-09-14 | Hero = **background flight video** (poster + placeholder until footage) | Highest impact; degrade gracefully |
 | 2026-09-14 | Motion level = **rich but tasteful**, restrained on Defence | Premium feel without undermining defence credibility |

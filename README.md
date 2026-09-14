@@ -22,7 +22,7 @@ Discovery / documentation phase — no site build yet.
 
 ## Stack
 
-Next.js (App Router) + React + TypeScript + Tailwind CSS, deployed to Vercel; contact forms via a Next.js Route Handler + Resend. See `docs/PRD.md` for architecture and `Aeromiles_Animation_Spec.md` for the animation approach.
+Next.js (App Router) + React + TypeScript + Tailwind CSS, **static export** (`output: 'export'`), deployed to the client's **Hostinger** hosting; contact form via **Web3Forms** (or a PHP+SMTP mailer). See `docs/PRD.md` for architecture and `Aeromiles_Animation_Spec.md` for the animation approach.
 
 ## Brand
 
