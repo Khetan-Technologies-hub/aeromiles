@@ -61,18 +61,18 @@ From the Aeromiles brief (Home, Products, Education/Labs, Defence, About, Contac
 
 ## 4. Recommended animation stack
 
-Aligned with the existing Aeromiles doc's recommended stack (**Astro + Tailwind CSS + Vercel/Netlify**):
+Aligned with the project stack (**Next.js + React + TypeScript + Tailwind CSS on Vercel** — see `docs/PRD.md`):
 
 | Need | Recommended | Why |
 |---|---|---|
-| Scroll reveals (M3) | **IntersectionObserver** (hand-rolled) or **AOS** | Zero/low JS, Astro-friendly, great Lighthouse |
-| Count-up (M4) | **CountUp.js** or small custom | Tiny, triggered by IntersectionObserver |
-| Carousel (M7) | **Swiper.js** | Industry standard, touch + arrows + a11y |
-| Card tilt (M6, optional 3D) | **Vanilla-Tilt.js** | Matches AeroBay's tilt feel, dependency-light |
+| Scroll reveals (M3) | **Framer Motion** (`whileInView`) or IntersectionObserver | React-native API, great DX; low JS |
+| Count-up (M4) | **react-countup** or small custom hook | Tiny, triggered on in-view |
+| Carousel (M7) | **Swiper** (React) | Industry standard, touch + arrows + a11y |
+| Card tilt (M6, optional 3D) | **Vanilla-Tilt** (or Framer Motion tilt) | Matches AeroBay's tilt feel, dependency-light |
 | Orbit/glow/marquee (M2/M8/M13) | **CSS keyframes** | No JS, cheap, smooth |
-| Advanced timelines / parallax (M9) | **GSAP + ScrollTrigger** *(only if needed)* | Powerful but heavier — add only where CSS/IO can't deliver |
+| Advanced timelines / parallax (M9) | **GSAP + ScrollTrigger** *(only if needed)* | Powerful but heavier — add only where CSS/Framer can't deliver |
 
-**Guidance:** Start CSS-first + IntersectionObserver; reach for Swiper where a real carousel is needed; only introduce GSAP if a specific sequence demands it. This keeps the **Lighthouse 90+ / WCAG 2.1 AA** targets from the brief realistic.
+**Guidance:** Stack is **Next.js (App Router) + React + TS + Tailwind** (see `docs/PRD.md`). Keep motion in small client components (`"use client"`), pages Server-rendered. CSS-first for ambient loops (orbit/glow/marquee); Framer Motion for reveals/transitions; Swiper for real carousels; GSAP only when a sequence demands it. This keeps the **Lighthouse 90+ / WCAG 2.1 AA** targets realistic.
 
 ---
 
@@ -94,13 +94,13 @@ Aligned with the existing Aeromiles doc's recommended stack (**Astro + Tailwind 
 
 ---
 
-## 7. Open questions for the client
+## 7. Resolved decisions (see PRD Decision Log)
 
-1. **Hero:** orbiting emblem animation, or a background **video** of planes/drones in flight? (Video needs footage.)
-2. **Assets:** do we have real product photos / flight footage, or use styled placeholders until shot?
-3. **Depth of motion:** "tasteful and fast" vs "maximal, animation-heavy like the references"?
-4. **Defence section:** confirm how restrained the motion should be there.
-5. **Stack confirmation:** proceed on Astro + Tailwind (per existing doc) for the eventual build?
+1. **Hero:** ✅ **Background flight video** (muted autoplay + poster; placeholder footage until real footage supplied).
+2. **Assets:** ✅ Mostly **placeholders** for v1, swapped as real content arrives.
+3. **Depth of motion:** ✅ **Rich but tasteful** — full catalog, fast, restrained on Defence.
+4. **Defence section:** ✅ Deliberately **restrained** — subtle reveals only.
+5. **Stack:** ✅ **Next.js (App Router) + React + TypeScript + Tailwind**, Vercel + Resend (not Astro).
 
 ---
 

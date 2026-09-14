@@ -20,9 +20,9 @@ Discovery / documentation phase — no site build yet.
 - [aerobay.in](https://aerobay.in/) — education / skill-lab polish
 - [vayumandalinnovations.com](https://www.vayumandalinnovations.com/) — indigenous UAV / defence (closest business match)
 
-## Recommended stack (per brief)
+## Stack
 
-Astro + Tailwind CSS + Vercel/Netlify. See `Aeromiles_Animation_Spec.md` for the animation approach.
+Next.js (App Router) + React + TypeScript + Tailwind CSS, deployed to Vercel; contact forms via a Next.js Route Handler + Resend. See `docs/PRD.md` for architecture and `Aeromiles_Animation_Spec.md` for the animation approach.
 
 ## Brand
 

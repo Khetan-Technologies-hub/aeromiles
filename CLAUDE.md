@@ -9,40 +9,50 @@ A professional content/marketing website for **Aeromiles** — an Indian company
 
 ## Architecture
 
-**Stack:** Astro (static-first) + Tailwind CSS + Astro Content Collections (Markdown/MDX) → deployed to **Netlify** with **Netlify Forms**. Analytics: GA4. Package manager: **npm**. See `docs/PRD.md` §4 for the full architecture, sitemap, and content-model diagrams.
+**Stack:** **Next.js (App Router) + React + TypeScript** + Tailwind CSS, content as **in-repo Markdown/MDX** (typed frontmatter) → deployed to **Vercel**; contact forms via a **Next.js Route Handler + Resend**. Analytics: GA4. Package manager: **npm**. See `docs/PRD.md` §4 for the full architecture, sitemap, and content-model diagrams.
 
-**Data flow:** Content lives as typed Markdown/MDX in `src/content/` → Astro builds static HTML → served from Netlify's CDN. Form submissions POST to Netlify Forms → email notification + submissions dashboard. No runtime backend, no database.
+**Data flow:** Content lives as typed Markdown/MDX under `content/` → statically generated at build (SSG) → served from Vercel's edge. Form submissions POST to `/api/contact` (Route Handler) → validated → emailed via Resend. No database.
 
-**Expected layout** (once code lands — keep to this):
+**Expected layout** (App Router — once code lands, keep to this):
 ```
 src/
-  pages/        # routes: index, products, products/[slug], education, defence, about, contact
-  layouts/      # BaseLayout (head, GA4, header, footer)
-  components/   # reusable islands & sections (Hero, StatCounter, ProductCard, Nav, Footer…)
-  content/      # Content Collections: products/, team/, labs/, defence/, testimonials/
-  content/config.ts  # zod schemas — the source of truth for content shape
-  styles/       # Tailwind entry + brand tokens
-  assets/       # images/video processed by Astro's asset pipeline
-public/         # static passthrough (favicon, robots.txt, poster fallback)
+  app/
+    layout.tsx            # root layout (fonts, GA4, <head> metadata)
+    page.tsx              # Home
+    products/page.tsx     # listing + filter
+    products/[slug]/page.tsx
+    education/page.tsx
+    defence/page.tsx
+    about/page.tsx
+    contact/page.tsx
+    api/contact/route.ts  # form handler → Resend
+    sitemap.ts, robots.ts # SEO
+  components/             # React components/sections (Hero, StatCounter, ProductCard, Nav, Footer…)
+  lib/                    # content loaders, schema (zod), utils
+  styles/                # Tailwind entry + brand tokens
+content/                 # Markdown/MDX: products/, team/, labs/, defence/, testimonials/
+public/                  # static assets (favicon, robots poster, hero video, og images)
 ```
 
 **Rules a developer must follow:**
-- **Static-first.** Prefer zero-JS. Add an interactive island (`client:visible`/`client:idle`) only where motion/behaviour truly needs it. Never ship a heavy framework for a static section.
-- **Content is data, not markup.** Products, team, labs, defence capabilities, testimonials come from Content Collections with zod schemas in `src/content/config.ts` — never hardcode this content into components.
+- **Server Components by default.** Keep components server-rendered for SEO/perf; add `"use client"` only where interaction/motion needs it. Never make a whole page a client component to animate one section.
+- **TypeScript strict, no `any`.** Type props, content, and API payloads. Content shape is validated with **zod** in `src/lib`.
+- **Content is data, not markup.** Products, team, labs, defence capabilities, testimonials come from `content/` (parsed + zod-validated) — never hardcode this content into components.
 - **Brand tokens, not magic values.** Navy `#0e2a4d`, blue `#1b8ee6`, saffron `#ff7a1a`, green `#1f9e4a`. Define once in the Tailwind theme / CSS variables; reference tokens everywhere.
-- **Motion follows `Aeromiles_Animation_Spec.md`.** CSS + IntersectionObserver first; Swiper for carousels; CountUp for stats; GSAP only where CSS/IO genuinely can't. **Every animation needs a `prefers-reduced-motion` fallback**, animates only `opacity`/`transform` (no layout shift), and reveals **once**.
+- **Motion follows `Aeromiles_Animation_Spec.md`.** Framer Motion / IntersectionObserver for reveals; Swiper for carousels; CountUp for stats; GSAP only where those genuinely can't. **Every animation needs a `prefers-reduced-motion` fallback**, animates only `opacity`/`transform` (no layout shift), and reveals **once**. Motion lives in small client components, not whole pages.
 - **Defence section stays restrained** — subtle reveals only; no publishing of classified/export-controlled detail (general capability copy only).
-- **Images optimized** (WebP/AVIF via Astro assets), lazy-loaded; hero video muted + `playsinline` + poster fallback, mobile-conscious.
+- **Images optimized** via `next/image` (WebP/AVIF), lazy-loaded; hero video muted + `playsinline` + poster fallback, mobile-conscious.
 - **Mobile-first & accessible.** WCAG 2.1 AA: semantic headings, alt text, keyboard-operable nav/carousels, visible focus. Verified from ~360px up.
-- **SEO on every page:** unique `<title>` + meta description, Open Graph, plus `sitemap.xml` and `robots.txt`.
+- **SEO on every page:** use the Next **Metadata API** for unique `<title>` + description + Open Graph; generate `sitemap.ts` and `robots.ts`.
 - **Placeholders are expected in v1.** Use sample data/styled placeholders where real content (photos, specs, bios, defence copy, footage) isn't delivered yet — keep it obviously swappable and note it in the handoff.
 
 ## Key rules
 
-- **No secrets in the repo or in this file.** Form recipient email, GA4 measurement ID, and any API keys live in **environment variables / Netlify's dashboard**, referenced via `import.meta.env` — never committed. `.env` is gitignored.
+- **No secrets in the repo or in this file.** Resend API key, form recipient email, and GA4 measurement ID live in **environment variables / Vercel's dashboard** (`process.env`, server-side only for secrets) — never committed. `.env.local` is gitignored.
 - **Never publish classified or export-controlled defence content.** When a ticket's content is unclear on this, stop and ask.
 - **No PII in URLs/query strings.** Forms POST; GA4 configured with appropriate consent handling.
 - **Don't add e-commerce, auth/login, a CMS admin, i18n, or a blog** without a PRD change — they are explicit v1 non-goals.
+- **Keep secrets server-side.** Only expose values via `NEXT_PUBLIC_*` when they're genuinely public (e.g. GA4 id); never the Resend key.
 - **Match the surrounding code** — component naming, structure, and Tailwind idioms. Prefer editing existing components over spawning near-duplicates.
 - **If a ticket clashes with this file or `docs/PRD.md`, stop and ask** — don't guess.
 
@@ -63,4 +73,4 @@ public/         # static passthrough (favicon, robots.txt, poster fallback)
 - **`prototype/`** — parked WIP homepage; visual reference for the motion patterns only, **not** the production build.
 - **`Logo/`** — brand assets (wordmark, emblem, lockups).
 - Reference sites (motion inspiration): [aerobay.in](https://aerobay.in/), [vayumandalinnovations.com](https://www.vayumandalinnovations.com/).
-- External systems: **Netlify** (hosting + Forms), **Google Analytics 4**, client-owned domain (likely `aeromiles.in` — to confirm).
+- External systems: **Vercel** (hosting), **Resend** (transactional email for forms), **Google Analytics 4**, client-owned domain (likely `aeromiles.in` — to confirm).

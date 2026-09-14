@@ -67,12 +67,12 @@ No authenticated roles exist *on the site itself* in v1.
 
 | Layer | Choice | Notes |
 |---|---|---|
-| Framework | **Astro** | Static-first, islands for interactivity, excellent Lighthouse |
-| Styling | **Tailwind CSS** | Utility-first; brand tokens as CSS variables/theme |
-| Content | **Astro Content Collections** | Type-safe Markdown/MDX in-repo (products, labs, defence, team) |
-| Motion | CSS keyframes + IntersectionObserver; **Swiper** (carousels), **CountUp** (stats), optional **Vanilla-Tilt**; **GSAP** only where needed | See `Aeromiles_Animation_Spec.md` |
-| Forms | **Netlify Forms** *(recommended default — confirm at deploy)* | Zero-backend: spam filter, dashboard, email notifications |
-| Hosting | **Netlify** *(recommended default)* | Pairs with Netlify Forms; Vercel is a viable alternative |
+| Framework | **Next.js (App Router) + React + TypeScript** | SSG for marketing pages; real HTML for SEO; `next/image` optimization; TS strict |
+| Styling | **Tailwind CSS** | Utility-first; brand tokens in Tailwind theme / CSS variables |
+| Content | **In-repo Markdown/MDX** with typed frontmatter (gray-matter/Contentlayer + zod) | Products, labs, defence, team, testimonials as local content — read at build; no CMS in v1 |
+| Motion | **Framer Motion** for React reveals/transitions + IntersectionObserver; **Swiper** (carousels), **CountUp** (stats), optional **Vanilla-Tilt**; **GSAP** only where needed | See `Aeromiles_Animation_Spec.md` |
+| Forms | **Next.js Route Handler + Resend** *(recommended default — confirm at deploy)* | Serverless API route emails submissions via Resend; validate + spam-protect |
+| Hosting | **Vercel** *(recommended default)* | Natural home for Next.js; Netlify is a viable alternative |
 | Analytics | **Google Analytics 4** | Add cookie/consent handling per privacy note |
 | Domain | **Client-owned** (likely `aeromiles.in` — to confirm) | DNS pointed at host at launch |
 
@@ -81,16 +81,16 @@ No authenticated roles exist *on the site itself* in v1.
 ```mermaid
 flowchart TD
     subgraph Repo["Git repo (aeromiles)"]
-        MD["Content Collections<br/>(Markdown/MDX)"]
-        SRC["Astro + Tailwind<br/>components & pages"]
-        ASSET["Optimized images<br/>(WebP/AVIF) + video"]
+        MD["Markdown/MDX content<br/>(typed frontmatter)"]
+        SRC["Next.js + React + TS<br/>+ Tailwind"]
+        ASSET["Optimized images<br/>(next/image) + video"]
     end
-    Repo -->|build| CI["Host build pipeline"]
-    CI -->|static output| CDN["CDN / edge (Netlify)"]
+    Repo -->|build| CI["Vercel build pipeline"]
+    CI -->|SSG output| CDN["Vercel edge / CDN"]
     Visitor(["Visitor"]) -->|HTTPS| CDN
-    Visitor -->|submits| FORM["Netlify Forms endpoint"]
-    FORM -->|notification| EMAIL["Aeromiles inbox"]
-    FORM -->|stored| DASH["Submissions dashboard"]
+    Visitor -->|submits form| API["Next Route Handler<br/>/api/contact"]
+    API -->|send| RESEND["Resend"]
+    RESEND -->|notification| EMAIL["Aeromiles inbox"]
     CDN -.->|page views| GA["Google Analytics 4"]
 ```
 
@@ -188,7 +188,7 @@ Hero (**background flight video**, muted autoplay + poster fallback; placeholder
 | **SEO** | Page titles/meta descriptions, Open Graph, `sitemap.xml`, `robots.txt`, semantic HTML, structured headings |
 | **Security/Privacy** | HTTPS; form spam protection; no PII in URLs; GA4 with appropriate consent handling; no sensitive defence data published |
 | **Motion** | No layout-shift animations (opacity/transform only); reveal-once; smooth easing `cubic-bezier(.16,.84,.44,1)` |
-| **Maintainability** | Content in Markdown; reusable Astro components; brand tokens centralized |
+| **Maintainability** | Content in Markdown/MDX; reusable React components; brand tokens centralized |
 
 ---
 
@@ -196,7 +196,7 @@ Hero (**background flight video**, muted autoplay + poster fallback; placeholder
 
 | # | Decision | Owner | Default / status |
 |---|---|---|---|
-| O1 | Confirm hosting + forms = Netlify + Netlify Forms | Manager | Recommended default; confirm at deploy |
+| O1 | Confirm hosting + forms = Vercel + Next Route Handler + Resend | Manager | Recommended default; confirm at deploy |
 | O2 | Exact domain name | Client | Client-owned; likely `aeromiles.in` — confirm |
 | O3 | Form recipient email address(es) | Client | **Required before launch** |
 | O4 | Real flight footage for hero video | Client | Placeholder until supplied |
@@ -216,9 +216,9 @@ Hero (**background flight video**, muted autoplay + poster fallback; placeholder
 | 2026-09-14 | **Full multi-page site** in v1 (Home, Products, Education/Labs, Defence, About, Contact) | Client wants complete brief delivered, not phased |
 | 2026-09-14 | **All three audiences at equal depth** | No single priority audience; balanced homepage |
 | 2026-09-14 | Primary metric = **qualified inquiries**; credibility co-equal | Matches brief objectives |
-| 2026-09-14 | **Astro + Tailwind** framework | Static-first, Lighthouse 90+, matches original brief recommendation |
-| 2026-09-14 | **In-repo Markdown (Content Collections)** for content | Fastest, zero-cost, type-safe; no self-serve CMS needed in v1 |
-| 2026-09-14 | **Netlify + Netlify Forms** (recommended default) | Zero-backend forms; confirm at deploy (O1) |
+| 2026-09-14 | ~~Astro + Tailwind~~ → **Next.js (App Router) + React + TypeScript + Tailwind** | Manager elected React/TS; Next.js chosen over Vite SPA for SEO (SSG, real HTML, metadata) — matches vayumandalinnovations.com |
+| 2026-09-14 | **In-repo Markdown/MDX** with typed frontmatter (gray-matter/Contentlayer + zod) | Keeps content as data, no CMS in v1 (framework changed from Astro Content Collections to Next-compatible MDX) |
+| 2026-09-14 | ~~Netlify + Netlify Forms~~ → **Vercel + Next Route Handler + Resend** (recommended default) | Natural Next.js host; serverless API route for forms; confirm at deploy (O1) |
 | 2026-09-14 | Domain is **client-owned/purchased** | Point DNS at host at launch (O2) |
 | 2026-09-14 | Hero = **background flight video** (poster + placeholder until footage) | Highest impact; degrade gracefully |
 | 2026-09-14 | Motion level = **rich but tasteful**, restrained on Defence | Premium feel without undermining defence credibility |
