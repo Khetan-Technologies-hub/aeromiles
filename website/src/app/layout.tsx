@@ -1,31 +1,52 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Sora } from "next/font/google";
 import "./globals.css";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { Analytics } from "@/components/analytics";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Aeromiles — RC Planes, Drones & Aeromodelling Labs",
+  title: {
+    default: "Aeromiles — RC Planes, Drones & Aeromodelling Labs",
+    template: "%s · Aeromiles",
+  },
   description:
     "Aeromiles designs RC planes and drones, builds K–12 & college aeromodelling labs, and delivers drone capability for defence and government.",
+  openGraph: {
+    title: "Aeromiles — RC Planes, Drones & Aeromodelling Labs",
+    description:
+      "RC planes, drones and aeromodelling labs — engineered in India for classrooms, hobbyists and defence.",
+    siteName: "Aeromiles",
+    locale: "en_IN",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${sora.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <SiteHeader />
+        {children}
+        <SiteFooter />
+        <Analytics />
+      </body>
     </html>
   );
 }
