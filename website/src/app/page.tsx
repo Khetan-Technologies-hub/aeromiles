@@ -15,7 +15,7 @@ export default function Home() {
           className="mx-auto mt-8 h-1 w-40 rounded-full"
           style={{
             background:
-              "linear-gradient(90deg, var(--color-saffron), #ffffff, var(--color-green))",
+              "linear-gradient(90deg, var(--color-saffron), var(--color-bg), var(--color-green))",
           }}
         />
       </div>
