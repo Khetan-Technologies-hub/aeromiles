@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Aeromiles brand tokens
+   Single source of truth for colors — reference these, never
+   raw hex values (see CLAUDE.md). Tailwind v4 exposes each
+   --color-* as utilities, e.g. bg-navy, text-blue, border-line.
+   ============================================================ */
+:root {
+  --color-navy: #0e2a4d; /* primary */
+  --color-navy-900: #081b34; /* darkest navy for gradients */
+  --color-blue: #1b8ee6; /* bright blue accent */
+  --color-blue-600: #1478c7;
+  --color-saffron: #ff7a1a; /* tricolour accent — small use only */
+  --color-green: #1f9e4a; /* tricolour accent — small use only */
+  --color-ink: #0c1830; /* body text on light */
+  --color-slate: #5a6b82; /* muted text */
+  --color-line: #e6ecf4; /* hairline borders */
+  --color-bg: #ffffff; /* page background */
+  --color-bg-soft: #f4f8fd; /* light section background */
+
+  --background: var(--color-bg);
+  --foreground: var(--color-ink);
+}
+
+@theme inline {
+  --color-navy: var(--color-navy);
+  --color-navy-900: var(--color-navy-900);
+  --color-blue: var(--color-blue);
+  --color-blue-600: var(--color-blue-600);
+  --color-saffron: var(--color-saffron);
+  --color-green: var(--color-green);
+  --color-ink: var(--color-ink);
+  --color-slate: var(--color-slate);
+  --color-line: var(--color-line);
+  --color-bg: var(--color-bg);
+  --color-bg-soft: var(--color-bg-soft);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    var(--font-sans),
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
