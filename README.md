@@ -10,6 +10,8 @@ In development. Foundation scaffolded (Next.js static export → Hostinger). See
 
 | Path | What it is |
 |---|---|
+| `website/` | The Next.js app (the actual site) |
+| `docs/` | PRD, process docs, tickets, briefs |
 | `Aeromiles_One_Page_Documentation.docx` | Original project brief (objectives, audiences, structure, requirements) |
 | `Aeromiles_Animation_Spec.md` | Animation & interaction spec, benchmarked against reference sites |
 | `Logo/` | Brand assets (wordmark, emblem, lockups) |
@@ -30,7 +32,7 @@ Navy `#0e2a4d` · Bright blue `#1b8ee6` · Tricolour accents — saffron `#ff7a1
 
 ### Brand tokens (in code)
 
-Defined once in `src/app/globals.css` and exposed as Tailwind utilities via `@theme` (Tailwind v4). **Reference these — never raw hex** (see `CLAUDE.md`):
+Defined once in `website/src/app/globals.css` and exposed as Tailwind utilities via `@theme` (Tailwind v4). **Reference these — never raw hex** (see `CLAUDE.md`):
 
 | Token | Value | Example utility |
 |---|---|---|
@@ -41,23 +43,24 @@ Defined once in `src/app/globals.css` and exposed as Tailwind utilities via `@th
 | `ink` / `slate` / `line` | `#0c1830` / `#5a6b82` / `#e6ecf4` | text + hairlines |
 | `bg` / `bg-soft` | `#ffffff` / `#f4f8fd` | section backgrounds |
 
-## Development
+The Next.js app lives in **`website/`** — run all commands from there.
 
 ```bash
-npm install       # install dependencies
+cd website
+npm install        # install dependencies
 npm run dev        # local dev server (http://localhost:3000)
 npm run lint       # ESLint
 npm run typecheck  # tsc --noEmit
 npm run format     # Prettier
-npm run build      # static export → out/
+npm run build      # static export → website/out/
 ```
 
-The app is a **static export** (`next.config.ts` → `output: 'export'`): `npm run build` writes a plain static site to `out/`. There is **no server** — no API routes, SSR, or middleware (Hostinger shared hosting can't run Node).
+The app is a **static export** (`website/next.config.ts` → `output: 'export'`): `npm run build` writes a plain static site to `website/out/`. There is **no server** — no API routes, SSR, or middleware (Hostinger shared hosting can't run Node).
 
 ### Deploy to Hostinger
 
-1. `npm run build` → produces `out/`.
-2. Upload the **contents of `out/`** into `public_html` on Hostinger (hPanel → File Manager, or FTP). Replace existing files.
+1. `cd website && npm run build` → produces `website/out/`.
+2. Upload the **contents of `website/out/`** into `public_html` on Hostinger (hPanel → File Manager, or FTP). Replace existing files.
 3. Ensure the domain points at the hosting and SSL is enabled (hPanel).
 
 > The live-upload step for this scaffold is **pending Hostinger credentials** (hPanel/FTP, via the team password manager). The build + local serve are verified; see the ticket #1 handoff.
