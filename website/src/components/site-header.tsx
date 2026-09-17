@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_ITEMS, PRIMARY_CTA, SITE } from "@/lib/site";
+import { NAV_ITEMS, SITE } from "@/lib/site";
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -95,13 +95,6 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <Link
-            href={PRIMARY_CTA.href}
-            className="inline-flex items-center gap-1.5 rounded-full bg-blue px-5 py-2.5 text-sm font-bold text-white shadow-[0_12px_30px_-12px_rgba(27,142,230,0.8)] transition-transform hover:-translate-y-0.5"
-          >
-            {PRIMARY_CTA.label}
-            <span aria-hidden>↗</span>
-          </Link>
         </nav>
 
         {/* Mobile toggle */}
@@ -163,14 +156,6 @@ export function SiteHeader() {
             </li>
           ))}
         </ul>
-        <Link
-          href={PRIMARY_CTA.href}
-          className="mt-5 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-blue px-5 py-3 text-base font-bold text-white"
-          onClick={() => setOpen(false)}
-        >
-          {PRIMARY_CTA.label}
-          <span aria-hidden>↗</span>
-        </Link>
       </nav>
     </header>
   );

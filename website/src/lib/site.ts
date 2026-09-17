@@ -6,17 +6,11 @@
 export type NavItem = { label: string; href: string };
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Products", href: "/products" },
-  { label: "Education / Labs", href: "/education" },
+  { label: "Schools", href: "/education" },
   { label: "Defence", href: "/defence" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
-
-export const PRIMARY_CTA: NavItem = {
-  label: "Get a Proposal",
-  href: "/contact",
-};
 
 export const CONTACT = {
   email: "hello@aeromiles.in",
