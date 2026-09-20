@@ -86,91 +86,79 @@ brand pairing and matches the same "enterprise, professional, legible" mood.)*
 
 ## Component Specs
 
+> **These are the patterns actually shipped in `website/src/components`**, written
+> as the Tailwind classes the code uses — not generic CSS. The generator's
+> original blocks here used its own palette (`#0369A1`, `#0F172A`, `#F8FAFC`) and
+> were replaced; copying those would have put non-brand colours into a new page.
+> Match these, and prefer editing an existing component over adding a near-duplicate.
+
 ### Buttons
 
-```css
-/* Primary Button */
-.btn-primary {
-  background: #0369A1;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
+Every button is a pill (`rounded-full`), `font-bold`, and at least 44px tall
+(`min-h-12` for CTAs, `min-h-11` for controls). Transition colour and transform
+only — never `transition-all`.
 
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
+```
+/* Primary CTA — on light or over the hero video */
+inline-flex min-h-12 items-center justify-center rounded-full bg-blue px-10 py-4
+font-bold text-white transition-colors hover:bg-blue-600 active:scale-95
 
-/* Secondary Button */
-.btn-secondary {
-  background: transparent;
-  color: #0F172A;
-  border: 2px solid #0F172A;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
+/* Secondary on a light surface */
+inline-flex min-h-12 items-center rounded-full bg-navy px-8 py-4 font-bold
+text-white transition-colors hover:bg-navy-900 active:scale-95
+
+/* Secondary on navy / over media — needs the light focus ring */
+focus-ring-light inline-flex min-h-12 items-center rounded-full border
+border-white/40 bg-white/10 px-8 py-4 font-bold text-white backdrop-blur-md
+transition-colors hover:bg-white/20 active:scale-95
+
+/* Filter / toggle pill — carries aria-pressed */
+inline-flex min-h-11 items-center rounded-full border px-6 text-sm font-bold
+transition-colors
+  active:  bg-blue text-white border-blue
+  idle:    bg-white text-slate border-line hover:border-blue/50 hover:text-navy
 ```
 
 ### Cards
 
-```css
-.card {
-  background: #F8FAFC;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-
-.card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
-}
+```
+group block h-full overflow-hidden rounded-3xl border border-line bg-white
+transition-shadow hover:shadow-xl        /* content padding: p-8 */
 ```
 
-### Inputs
+- Radius is `rounded-3xl`; `rounded-2xl` only for media panels inside a section.
+- Hover lift is a Framer `whileHover={{ y: -8 }}`, **gated on `useReducedMotion()`**.
+- When the whole card is a link, don't repeat the title in an `sr-only` — the
+  link's accessible name already contains it.
+- A card's arrow affordance moves with `group-hover:translate-x-1`, never by
+  animating `gap` (that is a layout animation).
 
-```css
-.input {
-  padding: 12px 16px;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 200ms ease;
-}
+### Inputs — not built yet (contact form, `/contact`)
 
-.input:focus {
-  border-color: #0F172A;
-  outline: none;
-  box-shadow: 0 0 0 3px #0F172A20;
-}
+No input exists in the codebase; this is the forward spec so the first one
+matches the system.
+
+```
+min-h-12 w-full rounded-xl border border-line bg-white px-4 text-base
+text-ink transition-colors placeholder:text-slate
+focus-visible:  (inherits the global 2px blue outline — do not set outline-none)
+error:          border-red-600, plus aria-invalid="true" and aria-describedby
 ```
 
-### Modals
+- **`text-base` (16px) is mandatory** — anything smaller makes iOS Safari zoom
+  the page on focus.
+- **Visible `<label>` above every field.** A placeholder is not a label.
+- Errors render **next to the field**, not only in a summary at the top, and are
+  associated via `aria-describedby`. On submit, move focus to the first invalid
+  field.
+- The form POSTs to Web3Forms — no PII in query strings (see CLAUDE.md).
 
-```css
-.modal-overlay {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-}
+### Overlays
 
-.modal {
-  background: white;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: var(--shadow-xl);
-  max-width: 500px;
-  width: 90%;
-}
-```
+There is **no modal** in this site and none is planned; the only overlay is the
+header's mobile drawer (`site-header.tsx`), which already locks body scroll,
+closes on Escape, moves focus to the first link and restores focus to the
+toggle on close. Reuse that pattern rather than introducing a dialog.
 
 ---
 
@@ -188,7 +176,11 @@ brand pairing and matches the same "enterprise, professional, legible" mood.)*
 
 **Pattern Name:** Trust & Authority + Conversion
 
-- **Conversion Strategy:** Security badges. Case studies. Transparent pricing. Low-friction form. Provide pause/stop and stop the logo carousel on focus, hover, and reduced motion. Previous/next controls provide the keyboard equivalent; pause offscreen/hidden and render a static logo set under reduced motion.
+- **Conversion Strategy:** Credibility first, then a low-friction inquiry. Case
+  studies, institution names, capability stats. *(The generator also listed
+  transparent pricing, security badges and a logo carousel — none apply: this
+  site has no pricing and no carousel. If one is ever added, it needs
+  pause/stop, keyboard prev/next, and a static set under reduced motion.)*
 - **CTA Placement:** Contact Sales / Get Quote (primary) + Nav
 - **Section Order:** Hero (mission/credibility) > Proof (logos, certs, stats) > Solution overview > Clear CTA path
 
@@ -196,17 +188,40 @@ brand pairing and matches the same "enterprise, professional, legible" mood.)*
 
 ## Motion
 
-**Stagger List** (Standard) — Trigger: load or scroll | Duration: 300-450ms | Easing: `back.out(1.4)`
+> The generator emitted a GSAP stagger snippet here. **GSAP is not a dependency
+> of this project** and `CLAUDE.md` puts it last — Framer Motion and
+> IntersectionObserver first, GSAP only where those genuinely can't. Replaced
+> with the shipped pattern; the underlying advice (stagger ~60ms, skip motion
+> under `prefers-reduced-motion`) is preserved.
 
-```js
-gsap.from('.grid-item', { opacity: 0, scale: 0.92, y: 16, duration: 0.4, stagger: { each: 0.06, from: 'start', grid: 'auto' }, ease: 'back.out(1.4)' });
+**Scroll reveal + stagger — use the `<Reveal>` component, don't re-implement it.**
+
+```tsx
+{items.map((item, idx) => (
+  <Reveal key={item.id} delay={idx * 0.1}>   {/* 0.05 for dense grids */}
+    …
+  </Reveal>
+))}
 ```
 
-**Framework notes:** grid: 'auto' lets GSAP infer rows/columns from a CSS grid layout for a natural wave stagger; Use matchMedia('(prefers-reduced-motion: reduce)') to skip non-essential motion and render the final state immediately
+`Reveal` (`website/src/components/reveal.tsx`) fades + slides 24px once on
+entry, 600ms, `cubic-bezier(0.16, 0.84, 0.44, 1)`. It renders children
+unanimated under reduced motion, and — importantly — renders them **revealed**
+when the page loads already scrolled past them, which a naive `whileInView`
+does not.
 
-- ✅ Combine with from: 'center' for a bento-grid layout to draw the eye inward first
-- ❌ Don't use back.out on dense data tables; the overshoot reads as sloppy on informational UI
-- ⚡ Group DOM writes; avoid interleaving layout reads (getBoundingClientRect) between staggered tweens
+**Rules for any motion beyond `Reveal`:**
+
+- `opacity` and `transform` only. Never animate `width`, `height`, `gap` or
+  anything else that triggers layout.
+- Gate every hover lift, image zoom, layout animation and counter on
+  `useReducedMotion()`. `globals.css` has a CSS backstop, but it does not
+  reach Framer's JS-driven animations.
+- Reveal **once** (`viewport={{ once: true }}`), never on every scroll past.
+- 1–2 animated elements per view. Duration 200–300ms for hover/state, ~600ms
+  for entrances; exits faster than entrances.
+- Keep motion in small client components — don't make a whole page
+  `"use client"` for one animation.
 
 ---
 
