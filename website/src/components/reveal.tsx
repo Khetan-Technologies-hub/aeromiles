@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 type RevealProps = {
   children: ReactNode;
@@ -16,16 +16,34 @@ type RevealProps = {
  * viewport. Animates opacity/transform only (no layout shift) and, when the
  * viewer prefers reduced motion, renders the content immediately with no motion.
  * See CLAUDE.md + Aeromiles_Animation_Spec.md.
+ *
+ * `whileInView` only fires for elements that *enter* the viewport, so anything
+ * the browser has already scrolled past on load — a deep link, an anchor, a
+ * refresh at a restored scroll position, a back navigation — would stay stuck
+ * at opacity 0 forever. We measure once on mount and render those revealed.
  */
 export function Reveal({ children, delay = 0, className }: RevealProps) {
   const prefersReduced = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const [alreadyPassed, setAlreadyPassed] = useState(false);
 
-  if (prefersReduced) {
-    return <div className={className}>{children}</div>;
+  useLayoutEffect(() => {
+    const rect = ref.current?.getBoundingClientRect();
+    // Fully above the viewport at first paint — never going to intersect.
+    if (rect && rect.bottom <= 0) setAlreadyPassed(true);
+  }, []);
+
+  if (prefersReduced || alreadyPassed) {
+    return (
+      <div ref={ref} className={className}>
+        {children}
+      </div>
+    );
   }
 
   return (
     <motion.div
+      ref={ref}
       className={className}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}

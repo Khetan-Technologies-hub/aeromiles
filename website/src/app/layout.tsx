@@ -42,6 +42,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${inter.variable} ${sora.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <a href="#main" className="skip-link">
+          Skip to main content
+        </a>
         <SiteHeader />
         {children}
         <SiteFooter />

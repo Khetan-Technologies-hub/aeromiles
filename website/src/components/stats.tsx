@@ -2,7 +2,7 @@
 
 import { Reveal } from "./reveal";
 import CountUp from "react-countup";
-import { motion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 
 type StatItem = {
   label: string;
@@ -18,6 +18,8 @@ const STATS: StatItem[] = [
 ];
 
 export function ImpactStats() {
+  const prefersReduced = useReducedMotion();
+
   return (
     <section className="bg-navy-900 py-20 relative overflow-hidden">
       {/* Subtle background glow */}
@@ -29,15 +31,19 @@ export function ImpactStats() {
             <Reveal key={stat.label} delay={idx * 0.1}>
               <div className="flex flex-col items-center text-center group">
                 <div className="text-4xl font-extrabold text-white mb-2 tabular-nums">
-                  <CountUp
-                    end={stat.value}
-                    duration={2.5}
-                    enableScrollSpy
-                    scrollSpyOnce
-                  />
+                  {prefersReduced ? (
+                    stat.value
+                  ) : (
+                    <CountUp
+                      end={stat.value}
+                      duration={2.5}
+                      enableScrollSpy
+                      scrollSpyOnce
+                    />
+                  )}
                   <span className="text-blue">{stat.suffix}</span>
                 </div>
-                <p className="text-sm font-medium text-white/50 uppercase tracking-wider group-hover:text-white/80 transition-colors">
+                <p className="text-sm font-medium text-white/80 uppercase tracking-wider group-hover:text-white transition-colors">
                   {stat.label}
                 </p>
               </div>

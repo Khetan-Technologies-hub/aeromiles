@@ -23,8 +23,9 @@ export function DefenceTeaser() {
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-white/10">
                <Image
                  src="/images/defence-teaser.webp"
-                 alt="Defence capability"
+                 alt="An Aeromiles fixed-wing UAV on a field launch rail"
                  fill
+                 sizes="(min-width: 1024px) 50vw, 100vw"
                  className="object-cover opacity-80"
                />
                <div className="absolute inset-0 bg-gradient-to-r from-navy-900 via-transparent to-transparent" />
@@ -36,13 +37,13 @@ export function DefenceTeaser() {
               <h2 className="text-3xl font-extrabold tracking-tight sm:text-5xl mb-6">
                 Capability shaped<br />by the mission.
               </h2>
-              <p className="text-lg text-white/60 mb-8 leading-relaxed">
+              <p className="mb-8 max-w-[60ch] text-lg leading-relaxed text-white/85">
                 Providing high-reliability unmanned systems and indigenous drone capability designed for rigorous defence and government requirements.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-10">
                 {capabilities.map((cap) => (
-                  <span key={cap} className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-white/80 backdrop-blur-sm">
+                  <span key={cap} className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm">
                     {cap}
                   </span>
                 ))}
@@ -50,7 +51,7 @@ export function DefenceTeaser() {
 
               <Link
                 href="/defence"
-                className="inline-flex items-center rounded-full border border-white/30 bg-white/10 px-8 py-4 font-bold text-white transition-all hover:bg-white/20 active:scale-95"
+                className="focus-ring-light inline-flex min-h-12 items-center rounded-full border border-white/40 bg-white/10 px-8 py-4 font-bold text-white transition-colors hover:bg-white/20 active:scale-95"
               >
                 Discuss a requirement
               </Link>
