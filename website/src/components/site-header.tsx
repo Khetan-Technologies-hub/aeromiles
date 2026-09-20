@@ -58,7 +58,10 @@ export function SiteHeader() {
         {/* Brand */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-extrabold tracking-tight"
+          className={[
+            "flex items-center gap-2.5 rounded-md py-1 font-extrabold tracking-tight",
+            solid ? "" : "focus-ring-light",
+          ].join(" ")}
           onClick={() => setOpen(false)}
         >
           <Image
@@ -80,16 +83,19 @@ export function SiteHeader() {
         </Link>
 
         {/* Desktop nav */}
-        <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
+        <nav
+          aria-label="Primary"
+          className="hidden items-center gap-6 lg:flex"
+        >
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={[
-                "text-sm font-semibold transition-colors",
+                "inline-flex min-h-11 items-center rounded-md px-2 text-sm font-semibold transition-colors",
                 solid
                   ? "text-slate hover:text-navy"
-                  : "text-white/90 hover:text-white",
+                  : "text-white/90 hover:text-white focus-ring-light",
               ].join(" ")}
             >
               {item.label}
@@ -101,7 +107,10 @@ export function SiteHeader() {
         <button
           ref={toggleRef}
           type="button"
-          className="lg:hidden"
+          className={[
+            "-mr-2.5 inline-flex h-11 w-11 items-center justify-center rounded-md lg:hidden",
+            solid ? "" : "focus-ring-light",
+          ].join(" ")}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls="mobile-nav"
@@ -138,7 +147,7 @@ export function SiteHeader() {
       {/* Mobile drawer */}
       <nav
         id="mobile-nav"
-        aria-label="Primary"
+        aria-label="Primary (mobile)"
         hidden={!open}
         className="border-t border-line bg-bg px-6 pb-6 pt-2 lg:hidden"
       >
@@ -148,7 +157,7 @@ export function SiteHeader() {
               <Link
                 ref={i === 0 ? firstLinkRef : undefined}
                 href={item.href}
-                className="block border-b border-line py-3 text-base font-semibold text-navy"
+                className="flex min-h-12 items-center border-b border-line py-3 text-base font-semibold text-navy"
                 onClick={() => setOpen(false)}
               >
                 {item.label}

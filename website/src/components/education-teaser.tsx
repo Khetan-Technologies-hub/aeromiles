@@ -3,6 +3,7 @@
 import { Reveal } from "./reveal";
 import Link from "next/link";
 import Image from "next/image";
+import { CheckIcon } from "./icons";
 
 export function EducationTeaser() {
   const checklist = [
@@ -26,9 +27,14 @@ export function EducationTeaser() {
               </p>
 
               <ul className="space-y-4 mb-10">
-                {checklist.map((item, idx) => (
-                  <li key={item} className="flex items-center gap-3 text-navy font-medium">
-                    <span className="h-5 w-5 rounded-full bg-blue/20 text-blue flex items-center justify-center text-xs">✓</span>
+                {checklist.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-center gap-3 font-medium text-navy"
+                  >
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue/20 text-blue-600">
+                      <CheckIcon />
+                    </span>
                     {item}
                   </li>
                 ))}
@@ -36,7 +42,7 @@ export function EducationTeaser() {
 
               <Link
                 href="/education"
-                className="inline-flex items-center rounded-full bg-navy px-8 py-4 font-bold text-white transition-all hover:bg-navy-900 active:scale-95"
+                className="inline-flex min-h-12 items-center rounded-full bg-navy px-8 py-4 font-bold text-white transition-colors hover:bg-navy-900 active:scale-95"
               >
                 Plan a STEM lab
               </Link>
@@ -47,8 +53,9 @@ export function EducationTeaser() {
             <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl">
                <Image
                  src="/images/labs-teaser.webp"
-                 alt="Aeromodelling lab setup"
+                 alt="Students assembling an RC aircraft in an Aeromiles school lab"
                  fill
+                 sizes="(min-width: 1024px) 50vw, 100vw"
                  className="object-cover"
                />
                <div className="absolute inset-0 bg-gradient-to-tr from-navy/20 to-transparent" />

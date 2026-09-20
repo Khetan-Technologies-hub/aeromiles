@@ -58,9 +58,78 @@ body {
   font-family: var(--font-sans);
 }
 
+/* Section shell: every section's content column must line up with the
+   header/footer column (max-w-[1200px] + 1.5rem gutters). Tailwind's default
+   `container` steps to the breakpoint width, which drifts wider than the
+   header above 1200px. */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
 /* Respect users who prefer less motion. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* ============================================================
+   Accessibility baseline (UI/UX audit — WCAG 2.1 AA)
+   ============================================================ */
+
+/* Visible focus on every keyboard-focused control. Uses the brand blue on
+   light surfaces; components over navy opt into `.focus-ring-light`. */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Focus ring for controls sitting on navy / video backgrounds, where the
+   blue ring would not clear 3:1 against the surface. */
+.focus-ring-light:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* Skip link — first tab stop, visually hidden until focused. */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  z-index: 100;
+  transform: translateY(-150%);
+  border-radius: 0 0 0.5rem 0.5rem;
+  background: var(--color-navy);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  transition: transform 150ms ease;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* Any interactive element must read as interactive. */
+a[href],
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Backstop for any CSS transition/animation not already guarded in JS. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .skip-link {
+    transition: none;
   }
 }

@@ -4,7 +4,7 @@ import { ProductGrid } from "@/components/product-grid";
 import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "Our Fleet | Aeromiles",
+  title: "Our Fleet",
   description: "Explore the Aeromiles range of precision aircraft, tactical drones, and indigenous defence systems.",
 };
 
@@ -12,7 +12,7 @@ export default function ProductsPage() {
   const products = getProducts();
 
   return (
-    <main className="min-h-screen bg-bg pb-24">
+    <main id="main" className="min-h-dvh bg-bg pb-24">
       {/* Intro Section */}
       <section className="bg-navy text-white py-24 sm:py-32">
         <div className="container mx-auto px-6 text-center">

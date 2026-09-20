@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CONTACT, NAV_ITEMS, SITE, SOCIALS, type SocialLink } from "@/lib/site";
+import { ArrowRightIcon } from "./icons";
 
 function SocialIcon({ icon }: { icon: SocialLink["icon"] }) {
   const common = {
@@ -54,13 +55,13 @@ export function SiteFooter() {
               </span>
             </Link>
             <p className="max-w-xs text-sm">{SITE.tagline}</p>
-            <ul className="mt-5 flex gap-3">
+            <ul className="mt-5 flex gap-2">
               {SOCIALS.map((s) => (
                 <li key={s.label}>
                   <a
                     href={s.href}
                     aria-label={s.label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/80 transition-colors hover:border-white/40 hover:text-white"
+                    className="focus-ring-light flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white/90 transition-colors hover:border-white/60 hover:text-white"
                   >
                     <SocialIcon icon={s.icon} />
                   </a>
@@ -79,7 +80,7 @@ export function SiteFooter() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="block py-1.5 text-sm transition-colors hover:text-white"
+                    className="focus-ring-light flex min-h-11 items-center text-sm transition-colors hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -97,25 +98,26 @@ export function SiteFooter() {
               <li>
                 <a
                   href={`mailto:${CONTACT.email}`}
-                  className="block py-1.5 transition-colors hover:text-white"
+                  className="focus-ring-light flex min-h-11 items-center transition-colors hover:text-white"
                 >
                   {CONTACT.email}
                 </a>
               </li>
-              <li className="py-1.5">{CONTACT.location}</li>
+              <li className="flex min-h-11 items-center">{CONTACT.location}</li>
               <li>
                 <Link
                   href={CONTACT.inquiryHref}
-                  className="mt-1 inline-flex items-center gap-1.5 py-1.5 font-semibold text-blue transition-colors hover:text-white"
+                  className="focus-ring-light group inline-flex min-h-11 items-center gap-2 font-semibold text-blue transition-colors hover:text-white"
                 >
-                  Start an inquiry <span aria-hidden>→</span>
+                  Start an inquiry
+                  <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-1" />
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-11 flex flex-wrap justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/50">
+        <div className="mt-11 flex flex-wrap justify-between gap-4 border-t border-white/15 pt-6 text-xs text-white/70">
           <span>
             © {year} {SITE.name}. All rights reserved.
           </span>

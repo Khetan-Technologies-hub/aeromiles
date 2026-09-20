@@ -11,7 +11,7 @@ export default function Home() {
   const featuredProducts = getFeaturedProducts();
 
   return (
-    <main className="flex min-h-dvh flex-col bg-bg">
+    <main id="main" className="flex min-h-dvh flex-col bg-bg">
       <Hero />
       <AudiencePaths />
       <ImpactStats />

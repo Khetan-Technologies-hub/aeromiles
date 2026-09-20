@@ -1,16 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Reveal } from "./reveal";
 import Link from "next/link";
 import Image from "next/image";
 import type { Product, ProductCategory } from "@/lib/content";
+import { ArrowRightIcon } from "./icons";
 
 type CategoryFilter = ProductCategory | "all";
 
 export function ProductGrid({ products }: { products: Product[] }) {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("all");
+  const prefersReduced = useReducedMotion();
 
   const categories: { id: CategoryFilter; label: string }[] = [
     { id: "all", label: "All" },
@@ -23,25 +25,37 @@ export function ProductGrid({ products }: { products: Product[] }) {
     ? products
     : products.filter(p => p.category === activeCategory);
 
+  // Category chips: the tricolour accents (saffron 2.5:1, green 3.4:1 on white)
+  // fail AA as text, so the accent carries the colour and the label stays navy.
   const getCategoryColor = (cat: ProductCategory) => {
     switch (cat) {
-      case "plane": return "bg-blue/10 text-blue border-blue/20";
-      case "drone": return "bg-saffron/10 text-saffron border-saffron/20";
-      case "defence": return "bg-green/10 text-green border-green/20";
-      default: return "bg-slate/10 text-slate border-slate/20";
+      case "plane":
+        return "bg-blue/15 text-navy border-blue/40";
+      case "drone":
+        return "bg-saffron/15 text-navy border-saffron/50";
+      case "defence":
+        return "bg-green/15 text-navy border-green/50";
+      default:
+        return "bg-slate/10 text-navy border-slate/30";
     }
   };
 
   return (
     <div className="space-y-12">
       {/* Filter Bar */}
-      <div className="flex flex-wrap justify-center gap-3">
+      <div
+        role="group"
+        aria-label="Filter platforms by category"
+        className="flex flex-wrap justify-center gap-3"
+      >
         {categories.map((cat) => (
           <button
             key={cat.id}
+            type="button"
+            aria-pressed={activeCategory === cat.id}
             onClick={() => setActiveCategory(cat.id)}
             className={[
-              "px-6 py-2 rounded-full text-sm font-bold transition-all border",
+              "inline-flex min-h-11 items-center rounded-full border px-6 text-sm font-bold transition-colors",
               activeCategory === cat.id
                 ? "bg-blue text-white border-blue shadow-lg shadow-blue/30"
                 : "bg-white text-slate border-line hover:border-blue/50 hover:text-navy",
@@ -52,37 +66,43 @@ export function ProductGrid({ products }: { products: Product[] }) {
         ))}
       </div>
 
+      <p aria-live="polite" className="sr-only">
+        {filteredProducts.length}{" "}
+        {filteredProducts.length === 1 ? "platform" : "platforms"} shown
+      </p>
+
       {/* Products Grid */}
       <motion.div
-        layout
+        layout={!prefersReduced}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       >
         <AnimatePresence mode="popLayout">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product, idx) => (
               <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
+                layout={!prefersReduced}
+                initial={prefersReduced ? false : { opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
+                exit={prefersReduced ? undefined : { opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.25 }}
                 key={product.slug}
               >
                 <Reveal delay={idx * 0.05}>
                   <Link
                     href={`/products/${product.slug}`}
-                    className="group block bg-white rounded-3xl overflow-hidden border border-line transition-all hover:shadow-xl"
+                    className="group block h-full overflow-hidden rounded-3xl border border-line bg-white transition-shadow hover:shadow-xl"
                   >
                     <div className="relative h-64 overflow-hidden">
                       <motion.div
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={prefersReduced ? undefined : { scale: 1.05 }}
                         transition={{ duration: 0.6, ease: [0.16, 0.84, 0.44, 1] }}
-                        className="h-full w-full"
+                        className="relative h-full w-full"
                       >
                         <Image
                           src={product.image || "/images/placeholder-product.webp"}
-                          alt={product.title}
+                          alt=""
                           fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                           className="object-cover"
                         />
                       </motion.div>
@@ -110,8 +130,9 @@ export function ProductGrid({ products }: { products: Product[] }) {
                         </div>
                       )}
 
-                      <span className="inline-flex items-center font-bold text-blue group-hover:gap-2 transition-all gap-1">
-                        View platform <span className="text-blue">→</span>
+                      <span className="inline-flex items-center gap-2 font-bold text-blue-600">
+                        View platform
+                        <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-1" />
                       </span>
                     </div>
                   </Link>

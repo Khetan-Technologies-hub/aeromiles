@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./reveal";
 import Link from "next/link";
+import { ArrowRightIcon } from "./icons";
 
 type AudiencePath = {
   title: string;
@@ -37,6 +38,8 @@ const PATHS: AudiencePath[] = [
 ];
 
 export function AudiencePaths() {
+  const prefersReduced = useReducedMotion();
+
   return (
     <section className="py-24 bg-bg">
       <div className="container mx-auto px-6">
@@ -52,22 +55,24 @@ export function AudiencePaths() {
           {PATHS.map((path, idx) => (
             <Reveal key={path.title} delay={idx * 0.1}>
               <motion.div
-                whileHover={{ y: -10 }}
-                className={`relative group p-8 rounded-3xl border border-line transition-all hover:shadow-xl ${path.color}`}
+                whileHover={prefersReduced ? undefined : { y: -8 }}
+                className={`group relative flex h-full flex-col rounded-3xl border border-line p-8 transition-shadow hover:shadow-xl ${path.color}`}
               >
                 {/* Accent Top Bar */}
                 <div className={`absolute top-0 left-0 right-0 h-1.5 rounded-t-3xl ${path.accentColor}`} />
 
                 <h3 className="text-2xl font-bold text-navy mb-4">{path.title}</h3>
-                <p className="text-slate mb-8 leading-relaxed">
+                <p className="mb-8 max-w-[60ch] leading-relaxed text-slate">
                   {path.description}
                 </p>
 
                 <Link
                   href={path.href}
-                  className="inline-flex items-center font-bold text-navy hover:gap-2 transition-all gap-1"
+                  className="mt-auto inline-flex min-h-11 items-center gap-2 font-bold text-navy"
                 >
-                  Explore <span className="text-blue">→</span>
+                  Explore
+                  <ArrowRightIcon className="text-blue transition-transform duration-200 group-hover:translate-x-1" />
+                  <span className="sr-only">{path.title}</span>
                 </Link>
               </motion.div>
             </Reveal>

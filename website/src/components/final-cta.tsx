@@ -13,7 +13,7 @@ export function FinalCTA() {
           </h2>
           <Link
             href="/contact"
-            className="inline-flex items-center rounded-full bg-navy px-10 py-5 text-lg font-bold text-white transition-all hover:bg-navy-900 hover:scale-105 active:scale-95 shadow-2xl"
+            className="focus-ring-light inline-flex min-h-12 items-center rounded-full bg-navy px-10 py-5 text-lg font-bold text-white shadow-2xl transition-[background-color,transform] duration-200 hover:scale-105 hover:bg-navy-900 active:scale-95"
           >
             Talk to our team
           </Link>

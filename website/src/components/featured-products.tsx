@@ -1,16 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./reveal";
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/lib/content";
+import { ArrowRightIcon } from "./icons";
 
 interface FeaturedProductsProps {
   products: Product[];
 }
 
 export function FeaturedProducts({ products }: FeaturedProductsProps) {
+  const prefersReduced = useReducedMotion();
+
   return (
     <section className="py-24 bg-bg-soft">
       <div className="container mx-auto px-6">
@@ -27,18 +30,19 @@ export function FeaturedProducts({ products }: FeaturedProductsProps) {
             <Reveal key={product.slug} delay={idx * 0.1}>
               <Link
                 href={`/products/${product.slug}`}
-                className="group block bg-white rounded-3xl overflow-hidden border border-line transition-all hover:shadow-xl"
+                className="group block overflow-hidden rounded-3xl border border-line bg-white transition-shadow hover:shadow-xl"
               >
                 <div className="relative h-64 overflow-hidden">
                   <motion.div
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={prefersReduced ? undefined : { scale: 1.05 }}
                     transition={{ duration: 0.6, ease: [0.16, 0.84, 0.44, 1] }}
-                    className="h-full w-full"
+                    className="relative h-full w-full"
                   >
                     <Image
                       src={product.image || "/images/placeholder-product.webp"}
-                      alt={product.title}
+                      alt=""
                       fill
+                      sizes="(min-width: 768px) 33vw, 100vw"
                       className="object-cover"
                     />
                   </motion.div>
@@ -49,8 +53,9 @@ export function FeaturedProducts({ products }: FeaturedProductsProps) {
                   <p className="text-slate mb-6 leading-relaxed">
                     {product.summary}
                   </p>
-                  <span className="inline-flex items-center font-bold text-blue group-hover:gap-2 transition-all gap-1">
-                    View specs <span className="text-blue">→</span>
+                  <span className="inline-flex items-center gap-2 font-bold text-blue-600">
+                    View specs
+                    <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-1" />
                   </span>
                 </div>
               </Link>
