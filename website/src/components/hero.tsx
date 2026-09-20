@@ -31,31 +31,34 @@ export function Hero() {
       className="relative h-screen w-full overflow-hidden bg-navy"
       onMouseMove={handleMouseMove}
     >
-      {/* Background layer: interactive 3D model on capable desktops, with the
-          flight video as the graceful fallback (mobile / low-power / no-WebGL /
-          reduced-motion). Handled by <ModelViewer> from #21. */}
+      {/* Background layer: the flight video always plays as the base; on capable
+          desktops the interactive 3D model is layered on top of it (transparent
+          canvas). Mobile / low-power / no-WebGL / reduced-motion show the video
+          alone. Handled by <ModelViewer> from #21. */}
       <div className="absolute inset-0 z-0">
+        {/* Base: flying video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/hero-poster.webp"
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="/videos/hero-flight.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* 3D model layered over the video (renders nothing when not capable) */}
         <ModelViewer
-          className="h-full w-full"
+          className="absolute inset-0 h-full w-full"
           label="Interactive 3D model of an aircraft"
           scale={1.7}
-          fallback={
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster="/images/hero-poster.webp"
-              className="h-full w-full object-cover"
-            >
-              <source src="/videos/hero-flight.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          }
+          fallback={null}
         />
 
         {/* Scrim — darker at top (header) and bottom (stat row), lighter in the
-            middle so the 3D model reads through; pointer-events-none so drag
+            middle so the video + 3D read through; pointer-events-none so drag
             reaches the canvas. A soft radial keeps the headline legible. */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy/85 via-navy/35 to-navy/95" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_72%_52%_at_50%_46%,rgba(8,27,52,0.9),transparent_72%)]" />
