@@ -72,7 +72,6 @@ No authenticated roles exist *on the site itself* in v1.
 | Content | **In-repo Markdown/MDX** with typed frontmatter (gray-matter/Contentlayer + zod) | Read at build → baked into static pages; no CMS in v1 |
 | Images | **`next/image` with `unoptimized: true`** + pre-optimized WebP/AVIF assets | Static export has no image server; assets optimized at build/authoring time |
 | Motion | **Framer Motion** for React reveals/transitions + IntersectionObserver; **Swiper** (carousels), **CountUp** (stats), optional **Vanilla-Tilt**; **GSAP** only where needed | See `Aeromiles_Animation_Spec.md` |
-| 3D | **React Three Fiber + drei + Three.js** — a reusable `<ModelViewer>` (rotatable/auto-rotating glTF/GLB models) used in the hero and on product detail. Client-only island, **lazy-loaded** (dynamic import, mounts in-view / on capable devices). Runs in the browser, so it's fine on static hosting | Focused/hybrid 3D — not a full-canvas site. **Fallback required:** static image/video for mobile, low-power, WebGL-unavailable, and `prefers-reduced-motion`. Content stays in real HTML (never inside the canvas) so SEO/AA hold. Needs GLB model assets (O11) |
 | Forms | **Web3Forms** *(recommended)* or a **PHP + SMTP mailer** on Hostinger | Static site can't hold a secret server key. Web3Forms = free hosted endpoint (domain-restricted access key). PHP+SMTP keeps it self-hosted using the Hostinger mailbox |
 | Hosting | **Hostinger** (client's) — shared hosting: upload `out/` to `public_html` via hPanel File Manager / FTP | If the plan turns out to be VPS/Node, full SSR + a Resend API route become possible instead |
 | Analytics | **Google Analytics 4** | Add cookie/consent handling per privacy note |
@@ -159,11 +158,11 @@ erDiagram
 - **Motion baseline**: scroll-reveal on sections (reveal-once), smooth anchor scroll, `prefers-reduced-motion` fallback everywhere.
 
 ### 5.2 Home
-Hero: an **interactive 3D model** (rotatable/auto-rotating drone or plane via `<ModelViewer>`) as the centrepiece, over the navy gradient; **falls back** to the background flight video / poster image on mobile, low-power, no-WebGL, or reduced-motion. Animated headline, subhead, CTA → three audience paths (hover-lift cards, brand-accent bars) → animated **stat counters** (navy band) → featured products (card lift + image zoom) → Education/Labs teaser → Defence teaser (restrained) → team teaser → trust marquee → contact CTA band.
+Hero (**background flight video**, muted autoplay + poster fallback; placeholder footage until real footage supplied) with animated headline, subhead, CTA → three audience paths (hover-lift cards, brand-accent bars) → animated **stat counters** (navy band) → featured products (card lift + image zoom) → Education/Labs teaser → Defence teaser (restrained) → team teaser → trust marquee → contact CTA band.
 
 ### 5.3 Products
 - Grid of products from Content Collections; **filter by Plane / Drone / Defence**.
-- Product detail page: name, **interactive 3D model viewer** (`<ModelViewer>`, rotate/zoom) with a **photo-gallery fallback** (mobile/no-WebGL/reduced-motion), description, key specifications, category, inquiry CTA. Defence products keep it restrained.
+- Product detail page: name, photo gallery (optional lightbox/zoom — enhancement), description, key specifications, category, inquiry CTA.
 
 ### 5.4 Education / Labs
 - Program overview; equipment / curriculum / training / support; K–12 and college sections; benefits; photos/testimonials; **"Request a lab proposal" CTA/form**.
@@ -208,7 +207,6 @@ Hero: an **interactive 3D model** (rotatable/auto-rotating drone or plane via `<
 | O8 | Social links | Client | Needed for header/footer |
 | O9 | Launch date | Manager/Client | TBD |
 | O10 | GA4 property + consent/cookie approach | Manager | Set up during build |
-| O11 | **3D model assets** (GLB/glTF of drone + plane, optimized/Draco-compressed) | Client/Manager | Placeholder/low-poly stand-in model until real models are sourced or commissioned |
 
 ---
 
@@ -226,7 +224,7 @@ Hero: an **interactive 3D model** (rotatable/auto-rotating drone or plane via `<
 | 2026-09-14 | `next/image` runs with **`unoptimized: true`** + pre-optimized assets | Static export has no image-optimization server |
 | 2026-09-14 | Domain is **client-owned/purchased** | Point DNS at host at launch (O2) |
 | 2026-09-14 | Hero = **background flight video** (poster + placeholder until footage) | Highest impact; degrade gracefully |
-| 2026-09-20 | Add **focused/hybrid 3D** — interactive React Three Fiber `<ModelViewer>` in the hero + product detail; NOT a full-canvas 3D site | Manager's direction (2026-09-20). Constraints **kept**: lazy-loaded, image/video fallback (mobile/low-power/no-WebGL/reduced-motion), content stays in HTML for SEO/AA, defence restrained. Needs GLB assets (O11) |
+| 2026-09-20 | ~~Add focused/hybrid 3D (`<ModelViewer>` in hero + product detail)~~ → **3D dropped; site stays 2D** | Tried the 3D direction (foundation #21, hero retrofit #22) but the manager decided against it the same day. Removed the Three.js/`<ModelViewer>` code and reverted the hero to the flight video. Product detail returns to a photo gallery. #7 back to 2D; #22 closed. |
 | 2026-09-14 | Motion level = **rich but tasteful**, restrained on Defence | Premium feel without undermining defence credibility |
 | 2026-09-14 | Content = **mostly placeholders** for v1, swap as delivered | Keeps build moving while assets are gathered |
 | 2026-09-14 | Analytics = **Google Analytics 4** | Familiar, free (O10) |
