@@ -9,6 +9,8 @@ type SceneProps = {
   src?: string;
   autoRotate?: boolean;
   enableZoom?: boolean;
+  /** Uniform scale of the model (e.g. larger for a hero backdrop). */
+  scale?: number;
 };
 
 /** Real-model path: loads a GLB (Draco decoder served locally from /draco/). */
@@ -60,6 +62,7 @@ export default function ModelScene({
   src,
   autoRotate = true,
   enableZoom = false,
+  scale = 1,
 }: SceneProps) {
   return (
     <Canvas
@@ -76,7 +79,11 @@ export default function ModelScene({
         color="#1b8ee6"
       />
       <Suspense fallback={null}>
-        <Center>{src ? <GltfModel src={src} /> : <PlaceholderModel />}</Center>
+        <Center>
+          <group scale={scale}>
+            {src ? <GltfModel src={src} /> : <PlaceholderModel />}
+          </group>
+        </Center>
       </Suspense>
       <OrbitControls
         makeDefault

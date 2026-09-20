@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
+import { ModelViewer } from "./model-viewer";
 import Link from "next/link";
 
 export function Hero() {
@@ -21,8 +22,8 @@ export function Hero() {
   function handleMouseMove(e: React.MouseEvent) {
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
-    mouseX.set((clientX / innerWidth) - 0.5);
-    mouseY.set((clientY / innerHeight) - 0.5);
+    mouseX.set(clientX / innerWidth - 0.5);
+    mouseY.set(clientY / innerHeight - 0.5);
   }
 
   return (
@@ -30,24 +31,34 @@ export function Hero() {
       className="relative h-screen w-full overflow-hidden bg-navy"
       onMouseMove={handleMouseMove}
     >
-      {/* Background Video Layer - Mimicking Vayumandal's high-contrast cinematic style */}
+      {/* Background layer: interactive 3D model on capable desktops, with the
+          flight video as the graceful fallback (mobile / low-power / no-WebGL /
+          reduced-motion). Handled by <ModelViewer> from #21. */}
       <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/images/hero-poster.webp"
-          className="h-full w-full object-cover"
-        >
-          <source src="/videos/hero-flight.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <ModelViewer
+          className="h-full w-full"
+          label="Interactive 3D model of an aircraft"
+          scale={1.7}
+          fallback={
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster="/images/hero-poster.webp"
+              className="h-full w-full object-cover"
+            >
+              <source src="/videos/hero-flight.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          }
+        />
 
-        {/* Cinematic Overlay: Deep navy to ensure text pops, similar to Vayumandal's professional aesthetic */}
-        <div className="absolute inset-0 bg-navy/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/60 via-transparent to-navy" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/40" />
+        {/* Scrim — darker at top (header) and bottom (stat row), lighter in the
+            middle so the 3D model reads through; pointer-events-none so drag
+            reaches the canvas. A soft radial keeps the headline legible. */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy/85 via-navy/35 to-navy/95" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_72%_52%_at_50%_46%,rgba(8,27,52,0.9),transparent_72%)]" />
       </div>
 
       {/* Decorative Blue Circle Motif (Parallaxed) - Kept subtle */}
@@ -67,13 +78,15 @@ export function Hero() {
 
           <Reveal delay={0.3}>
             <h1 className="text-5xl font-extrabold tracking-tight sm:text-7xl lg:text-8xl leading-[1.1]">
-              Building India&apos;s next<br className="hidden sm:block" /> generation of flight
+              Building India&apos;s next
+              <br className="hidden sm:block" /> generation of flight
             </h1>
           </Reveal>
 
           <Reveal delay={0.5}>
             <p className="mx-auto mt-8 max-w-2xl text-lg text-white/70 sm:text-xl font-medium">
-              RC aircraft, drones and hands-on aeromodelling labs—from first flight to mission-ready systems.
+              RC aircraft, drones and hands-on aeromodelling labs—from first
+              flight to mission-ready systems.
             </p>
           </Reveal>
 
@@ -100,15 +113,21 @@ export function Hero() {
           <div className="absolute bottom-12 left-0 right-0 flex flex-col items-center justify-center gap-6 px-6 sm:flex-row sm:gap-x-16">
             <div className="flex items-center gap-3">
               <span className="h-1 w-1 rounded-full bg-blue" />
-              <span className="text-xs font-bold text-white/50 uppercase tracking-[0.2em]">3 Flight verticals</span>
+              <span className="text-xs font-bold text-white/50 uppercase tracking-[0.2em]">
+                3 Flight verticals
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <span className="h-1 w-1 rounded-full bg-blue" />
-              <span className="text-xs font-bold text-white/50 uppercase tracking-[0.2em]">K-12 to college labs</span>
+              <span className="text-xs font-bold text-white/50 uppercase tracking-[0.2em]">
+                K-12 to college labs
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <span className="h-1 w-1 rounded-full bg-blue" />
-              <span className="text-xs font-bold text-white/50 uppercase tracking-[0.2em]">India Designed & built</span>
+              <span className="text-xs font-bold text-white/50 uppercase tracking-[0.2em]">
+                India Designed & built
+              </span>
             </div>
           </div>
         </Reveal>

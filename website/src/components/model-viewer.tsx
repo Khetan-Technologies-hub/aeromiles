@@ -16,6 +16,8 @@ type ModelViewerProps = {
   className?: string;
   autoRotate?: boolean;
   enableZoom?: boolean;
+  /** Uniform scale of the model (e.g. larger for a hero backdrop). */
+  scale?: number;
   /** Accessible label for the interactive canvas. */
   label?: string;
 };
@@ -32,6 +34,7 @@ export function ModelViewer({
   className,
   autoRotate = true,
   enableZoom = false,
+  scale = 1,
   label = "Interactive 3D model",
 }: ModelViewerProps) {
   const capable = use3dCapable();
@@ -65,7 +68,12 @@ export function ModelViewer({
       aria-label={show3d ? label : undefined}
     >
       {show3d ? (
-        <ModelScene src={src} autoRotate={autoRotate} enableZoom={enableZoom} />
+        <ModelScene
+          src={src}
+          autoRotate={autoRotate}
+          enableZoom={enableZoom}
+          scale={scale}
+        />
       ) : (
         fallback
       )}
