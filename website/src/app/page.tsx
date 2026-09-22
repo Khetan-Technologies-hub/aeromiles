@@ -13,11 +13,34 @@ export default function Home() {
   return (
     <main id="main" className="flex min-h-dvh flex-col bg-bg">
       <Hero />
-      <AudiencePaths />
-      <ImpactStats />
-      <FeaturedProducts products={featuredProducts} />
-      <EducationTeaser />
-      <DefenceTeaser />
+
+      <div className="flex flex-col gap-0">
+        {/* High-Impact Entry Point */}
+        <section className="w-full">
+          <AudiencePaths />
+        </section>
+
+        {/* Featured Fleet & Stats Pair */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+          <div className="lg:col-span-8">
+            <FeaturedProducts products={featuredProducts} />
+          </div>
+          <div className="lg:col-span-4 bg-navy-900">
+            <ImpactStats />
+          </div>
+        </div>
+
+        {/* Educational & Defence Core */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+          <div className="lg:col-span-7">
+            <EducationTeaser />
+          </div>
+          <div className="lg:col-span-5">
+            <DefenceTeaser />
+          </div>
+        </div>
+      </div>
+
       <FinalCTA />
     </main>
   );

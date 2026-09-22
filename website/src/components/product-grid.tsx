@@ -25,18 +25,16 @@ export function ProductGrid({ products }: { products: Product[] }) {
     ? products
     : products.filter(p => p.category === activeCategory);
 
-  // Category chips: the tricolour accents (saffron 2.5:1, green 3.4:1 on white)
-  // fail AA as text, so the accent carries the colour and the label stays navy.
   const getCategoryColor = (cat: ProductCategory) => {
     switch (cat) {
       case "plane":
-        return "bg-blue/15 text-navy border-blue/40";
+        return "bg-blue/10 text-blue border-blue/30";
       case "drone":
-        return "bg-saffron/15 text-navy border-saffron/50";
+        return "bg-saffron/10 text-saffron border-saffron/30";
       case "defence":
-        return "bg-green/15 text-navy border-green/50";
+        return "bg-green/10 text-green border-green/30";
       default:
-        return "bg-slate/10 text-navy border-slate/30";
+        return "bg-slate/10 text-slate border-slate/30";
     }
   };
 
@@ -55,10 +53,10 @@ export function ProductGrid({ products }: { products: Product[] }) {
             aria-pressed={activeCategory === cat.id}
             onClick={() => setActiveCategory(cat.id)}
             className={[
-              "inline-flex min-h-11 items-center rounded-full border px-6 text-sm font-bold transition-colors",
+              "inline-flex min-h-11 items-center rounded-full border px-6 text-sm font-bold transition-all duration-300",
               activeCategory === cat.id
-                ? "bg-blue text-white border-blue shadow-lg shadow-blue/30"
-                : "bg-white text-slate border-line hover:border-blue/50 hover:text-navy",
+                ? "bg-blue text-white border-blue shadow-lg shadow-blue/30 scale-105"
+                : "bg-navy-900/50 text-slate border-line hover:border-blue/50 hover:text-ink backdrop-blur-sm",
             ].join(" ")}
           >
             {cat.label}
@@ -90,7 +88,7 @@ export function ProductGrid({ products }: { products: Product[] }) {
                 <Reveal delay={idx * 0.05}>
                   <Link
                     href={`/products/${product.slug}`}
-                    className="group block h-full overflow-hidden rounded-3xl border border-line bg-white transition-shadow hover:shadow-xl"
+                    className="group block h-full overflow-hidden rounded-3xl border border-line bg-navy-900/50 backdrop-blur-sm transition-all duration-500 hover:border-blue/50 hover:shadow-[0_0_40px_-10px_rgba(37,99,235,0.3)]"
                   >
                     <div className="relative h-64 overflow-hidden">
                       <motion.div
@@ -114,8 +112,8 @@ export function ProductGrid({ products }: { products: Product[] }) {
                     </div>
 
                     <div className="p-8">
-                      <h3 className="text-xl font-bold text-navy mb-2">{product.title}</h3>
-                      <p className="text-slate mb-6 leading-relaxed line-clamp-2">
+                      <h3 className="text-xl font-bold text-ink mb-2 font-display">{product.title}</h3>
+                      <p className="text-slate mb-6 leading-relaxed line-clamp-2 font-sans">
                         {product.summary}
                       </p>
 
@@ -130,7 +128,7 @@ export function ProductGrid({ products }: { products: Product[] }) {
                         </div>
                       )}
 
-                      <span className="inline-flex items-center gap-2 font-bold text-blue-600">
+                      <span className="inline-flex items-center gap-2 font-bold text-blue group-hover:text-blue-600 transition-colors">
                         View platform
                         <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-1" />
                       </span>

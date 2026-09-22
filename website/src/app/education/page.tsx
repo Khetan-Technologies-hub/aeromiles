@@ -15,7 +15,7 @@ export default function EducationPage() {
   const programs = getLabPrograms();
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-bg">
       <EducationHero />
 
       <div id="programs" className="relative">

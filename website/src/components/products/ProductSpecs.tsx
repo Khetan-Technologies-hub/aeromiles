@@ -11,22 +11,17 @@ export default function ProductSpecs({ specs }: ProductSpecsProps) {
 
   return (
     <div className="w-full">
-      <h3 className="text-xl font-semibold text-navy-900 mb-4">Technical Specifications</h3>
-      <div className="border border-slate-200 rounded-xl overflow-hidden">
-        <table className="w-full text-left border-collapse">
-          <tbody className="divide-y divide-slate-200">
-            {specs.map((spec, idx) => (
-              <tr key={idx} className="hover:bg-slate-50 transition-colors">
-                <td className="py-3 px-4 bg-slate-50/50 font-medium text-slate-600 w-1/3 border-r border-slate-200">
-                  {spec.label}
-                </td>
-                <td className="py-3 px-4 text-slate-900">
-                  {spec.value}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <h3 className="text-xl font-bold text-ink mb-6 font-display">Technical Specifications</h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {specs.map((spec, idx) => (
+          <div
+            key={idx}
+            className="flex justify-between items-center p-4 rounded-2xl border border-line bg-navy-900/30 backdrop-blur-sm transition-colors hover:bg-navy-900/50"
+          >
+            <span className="text-sm font-medium text-slate">{spec.label}</span>
+            <span className="text-sm font-bold text-ink">{spec.value}</span>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -15,47 +15,50 @@ export default function ProductGallery({ images, altText }: ProductGalleryProps)
 
   if (!images || images.length === 0) {
     return (
-      <div className="aspect-square bg-slate-100 flex items-center justify-center rounded-xl border border-slate-200 text-slate-400">
+      <div className="aspect-square bg-navy-900/50 flex items-center justify-center rounded-3xl border border-line text-slate">
         No images available
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-6 w-full">
       {/* Main Image Container */}
-      <div className="relative aspect-square overflow-hidden rounded-2xl bg-slate-50 border border-slate-200">
+      <div className="relative aspect-square overflow-hidden rounded-3xl bg-navy-900/30 border border-line group">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, scale: 1.02 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.4 }}
             className="relative w-full h-full"
           >
             <Image
               src={images[activeIndex]}
               alt={`${altText} - View ${activeIndex + 1}`}
               fill
-              className="object-contain p-4"
+              className="object-cover"
               unoptimized
             />
           </motion.div>
         </AnimatePresence>
+
+        {/* Cinematic Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-900/40 via-transparent to-transparent pointer-events-none" />
       </div>
 
       {/* Thumbnails */}
-      <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
         {images.map((img, idx) => (
           <button
             key={idx}
             onClick={() => setActiveIndex(idx)}
             className={cn(
-              "relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all",
+              "relative w-24 h-24 flex-shrink-0 rounded-2xl overflow-hidden border-2 transition-all duration-300",
               activeIndex === idx
-                ? "border-blue-600 ring-2 ring-blue-600/20"
-                : "border-transparent hover:border-slate-300 bg-slate-50"
+                ? "border-blue shadow-[0_0_15px_rgba(37,99,235,0.4)] scale-105"
+                : "border-transparent hover:border-line/50 bg-navy-900/50"
             )}
             aria-label={`View image ${idx + 1}`}
           >

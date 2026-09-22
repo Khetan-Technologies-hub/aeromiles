@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Inter, Sora } from "next/font/google";
+import { Inter, Sora, Exo, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -14,6 +14,18 @@ const inter = Inter({
 
 const sora = Sora({
   variable: "--font-sora",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const exo = Exo({
+  variable: "--font-exo",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -39,7 +51,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sora.variable} h-full antialiased`}
+      className={`${inter.variable} ${sora.variable} ${exo.variable} ${robotoMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <a href="#main" className="skip-link">

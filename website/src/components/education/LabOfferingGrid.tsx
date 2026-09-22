@@ -38,11 +38,14 @@ const OFFERINGS = [
 
 export default function LabOfferingGrid() {
   return (
-    <section className="py-20 bg-slate-50">
+    <section className="py-20 bg-bg">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-navy-900 mb-4">The Complete Ecosystem</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <span className="text-xs font-bold uppercase tracking-[0.3em] text-slate mb-3 block font-display">
+            Comprehensive
+          </span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-ink mb-4 font-display">The Complete Ecosystem</h2>
+          <p className="text-lg text-slate max-w-2xl mx-auto font-sans">
             We don't just provide kits; we provide a comprehensive learning environment.
           </p>
         </div>
@@ -55,13 +58,13 @@ export default function LabOfferingGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-8 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all group"
+              className="p-8 bg-navy-900/30 rounded-3xl border border-line backdrop-blur-sm hover:border-blue/50 transition-all group"
             >
               <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">
                 {item.icon}
               </div>
-              <h3 className="text-xl font-bold text-navy-900 mb-3">{item.title}</h3>
-              <p className="text-slate-600 leading-relaxed">
+              <h3 className="text-xl font-bold text-ink mb-3 font-display">{item.title}</h3>
+              <p className="text-slate leading-relaxed font-sans">
                 {item.desc}
               </p>
             </motion.div>

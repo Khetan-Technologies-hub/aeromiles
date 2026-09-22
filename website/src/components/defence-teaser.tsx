@@ -15,7 +15,7 @@ export function DefenceTeaser() {
   return (
     <section className="py-24 bg-navy-900 text-white relative overflow-hidden">
       {/* Ambient background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue/5 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue/10 blur-[140px] rounded-full pointer-events-none" />
 
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -34,10 +34,13 @@ export function DefenceTeaser() {
 
           <Reveal>
             <div className="relative z-10">
-              <h2 className="text-3xl font-extrabold tracking-tight sm:text-5xl mb-6">
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-slate mb-3 block font-display">
+                Sovereign Capability
+              </span>
+              <h2 className="text-3xl font-extrabold tracking-tight sm:text-5xl mb-6 font-display">
                 Capability shaped<br />by the mission.
               </h2>
-              <p className="mb-8 max-w-[60ch] text-lg leading-relaxed text-white/85">
+              <p className="mb-8 max-w-[60ch] text-lg leading-relaxed text-slate">
                 Providing high-reliability unmanned systems and indigenous drone capability designed for rigorous defence and government requirements.
               </p>
 

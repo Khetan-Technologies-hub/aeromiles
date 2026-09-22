@@ -8,7 +8,7 @@ export function FinalCTA() {
     <section className="py-24 bg-blue relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10 text-center">
         <Reveal>
-          <h2 className="text-3xl font-extrabold text-white sm:text-6xl tracking-tight mb-10">
+          <h2 className="text-3xl font-extrabold text-white sm:text-6xl tracking-tight mb-10 font-display">
             Let&apos;s build what flies next.
           </h2>
           <Link
