@@ -21,7 +21,7 @@ export function ImpactStats() {
   const prefersReduced = useReducedMotion();
 
   return (
-    <section className="bg-navy-900 py-20 relative overflow-hidden">
+    <section className="bg-navy-900 py-24 relative overflow-hidden">
       {/* Subtle background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue/10 blur-[120px] rounded-full pointer-events-none" />
 

@@ -27,7 +27,7 @@ export default function RelatedProducts({ currentProduct, allProducts }: Related
           >
             <div className="relative aspect-video mb-4 overflow-hidden rounded-xl bg-slate-50">
               <Image
-                src={product.image || '/placeholder-product.webp'}
+                src={product.image || '/images/placeholder-product.webp'}
                 alt={product.title}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-500"

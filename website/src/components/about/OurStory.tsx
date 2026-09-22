@@ -7,24 +7,24 @@ import Image from "next/image";
 export function OurStory() {
   const storyItems = [
     {
-      year: "2018",
-      title: "Founded",
-      description: "Aeromiles started as a passion project — building RC aircraft that could outperform imported alternatives.",
+      year: "Phase 1",
+      title: "The Vision",
+      description: "Founded with a singular mission: to build high-performance RC aircraft that outperform imported alternatives and advance indigenous design.",
     },
     {
-      year: "2020",
-      title: "First STEM Lab",
-      description: "Launched our first school aeromodelling lab, combining curriculum, kits, and instructor training.",
+      year: "Phase 2",
+      title: "STEM Integration",
+      description: "Developing a comprehensive aeromodelling ecosystem combining curriculum, precision kits, and instructor training for educational institutions.",
     },
     {
-      year: "2022",
-      title: "Defence Vertical",
-      description: "Expanded into indigenous UAV development for government and defence applications.",
+      year: "Phase 3",
+      title: "Strategic Expansion",
+      description: "Expanding capabilities into indigenous UAV development for government and defence applications.",
     },
     {
-      year: "2024",
-      title: "Scale & Reach",
-      description: "50+ aircraft concepts, 12 lab modules, and capability across three verticals — all designed in India.",
+      year: "Phase 4",
+      title: "Scaling Innovation",
+      description: "Defining the future of flight with a multi-vertical approach—designed, engineered, and built entirely in India.",
     },
   ];
 
@@ -33,10 +33,10 @@ export function OurStory() {
       <Reveal>
         <div className="text-center mb-16">
           <h2 className="text-3xl font-extrabold text-navy sm:text-5xl tracking-tight mb-4">
-            Our journey
+            Our Roadmap
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-slate leading-relaxed">
-            What began with a single RC plane design has grown into a multi-vertical aerospace company — still founder-led, still obsessed with flight.
+            From a bold vision of indigenous aerospace to a multi-vertical company — we are redefining flight for the next generation.
           </p>
         </div>
       </Reveal>

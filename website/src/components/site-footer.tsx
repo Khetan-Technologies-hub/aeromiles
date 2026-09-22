@@ -67,18 +67,15 @@ export function SiteFooter() {
         <CertificationGrid certifications={certifications} columns={4} className="mb-12" />
         <div className="grid gap-9 md:grid-cols-[1.6fr_1fr_1fr]">
           {/* Brand */}
-          <div>
-            <Link href="/" className="mb-4 flex items-center gap-2.5">
+          <div className="flex flex-col">
+            <Link href="/" className="mb-4 flex items-center">
               <Image
-                src="/emblem.png"
-                alt=""
-                width={40}
-                height={40}
-                className="h-10 w-10"
+                src="/logo.png"
+                alt="Aeromiles Logo"
+                width={180}
+                height={50}
+                className="h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
               />
-              <span className="text-lg font-extrabold tracking-tight text-white">
-                {SITE.name.toUpperCase()}
-              </span>
             </Link>
             <p className="max-w-xs text-sm">{SITE.tagline}</p>
             <ul className="mt-5 flex gap-2">

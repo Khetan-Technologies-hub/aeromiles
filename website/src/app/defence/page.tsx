@@ -8,8 +8,8 @@ import { DefenceCTA } from "@/components/defence/DefenceCTA";
 import { Section } from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "Defence & Government UAV Capabilities | Aeromiles",
-  description: "High-reliability unmanned systems and indigenous drone capability designed for rigorous defence and government requirements.",
+  title: "Indigenous UAV Capability for Defence & Government | Aeromiles",
+  description: "Mission-critical UAV capability engineered in India. Aeromiles delivers high-reliability unmanned systems and tactical drone solutions for rigorous defence and government applications.",
 };
 
 export default function DefencePage() {

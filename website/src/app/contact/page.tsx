@@ -5,8 +5,8 @@ import { ContactInfo } from "@/components/contact/ContactInfo";
 import { Section } from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "Contact Aeromiles | Start an Inquiry",
-  description: "Get in touch with Aeromiles for RC aircraft, STEM lab setup, defence UAV capabilities, or partnership opportunities.",
+  title: "Contact Aeromiles | Inquire About STEM Labs & UAV Capability",
+  description: "Ready to elevate your institution or organization? Contact Aeromiles for aeromodelling labs, STEM education programs, and professional UAV capability inquiries.",
 };
 
 export default function ContactPage() {
