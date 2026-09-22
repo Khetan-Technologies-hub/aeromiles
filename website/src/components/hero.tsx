@@ -3,12 +3,21 @@
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { Reveal } from "./reveal";
+import { TrustBadges } from "./TrustBadges";
 import Link from "next/link";
 
 const HERO_FACTS = [
   "3 flight verticals",
   "K-12 to college labs",
   "India designed & built",
+];
+
+const TRUST_BADGES = [
+  { label: "ISO 9001:2015", type: "certification" as const },
+  { label: "DRDO Partner", type: "partner" as const },
+  { label: "Make in India", type: "certification" as const },
+  { label: "DGCA Approved", type: "certification" as const },
+  { label: "50+ Institutions", type: "stat" as const },
 ];
 
 export function Hero() {
@@ -142,6 +151,11 @@ export function Hero() {
             </li>
           ))}
         </ul>
+      </Reveal>
+
+      {/* Trust Badges — below the fold for credibility */}
+      <Reveal delay={0.4} className="relative z-10 w-full pb-10">
+        <TrustBadges badges={TRUST_BADGES} variant="grid" />
       </Reveal>
     </section>
   );

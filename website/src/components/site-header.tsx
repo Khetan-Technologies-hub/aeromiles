@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { NAV_ITEMS, SITE } from "@/lib/site";
 
 export function SiteHeader() {
@@ -10,6 +11,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
 
   // Transparent over the hero, solid once the user scrolls.
   useEffect(() => {
@@ -40,10 +42,15 @@ export function SiteHeader() {
 
   const solid = scrolled || open;
 
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
+
   return (
     <header
       className={[
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "fixed inset-x-0 top-0 z-[var(--z-header)] transition-all duration-300",
         solid
           ? "bg-bg/90 shadow-[0_6px_24px_-18px_rgba(14,42,77,0.6)] backdrop-blur-md"
           : "bg-transparent",
@@ -85,20 +92,28 @@ export function SiteHeader() {
         {/* Desktop nav */}
         <nav
           aria-label="Primary"
-          className="hidden items-center gap-6 lg:flex"
+          className="hidden items-center gap-2 lg:flex"
         >
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={[
-                "inline-flex min-h-11 items-center rounded-md px-2 text-sm font-semibold transition-colors",
+                "relative inline-flex min-h-11 items-center rounded-md px-3 text-sm font-semibold transition-colors",
                 solid
-                  ? "text-slate hover:text-navy"
-                  : "text-white/90 hover:text-white focus-ring-light",
+                  ? isActive(item.href)
+                    ? "text-navy bg-navy/5"
+                    : "text-slate hover:text-navy hover:bg-navy/5"
+                  : isActive(item.href)
+                    ? "text-white bg-white/10"
+                    : "text-white/90 hover:text-white hover:bg-white/10 focus-ring-light",
               ].join(" ")}
+              aria-current={isActive(item.href) ? "page" : undefined}
             >
               {item.label}
+              {isActive(item.href) && solid && (
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-6 bg-blue rounded-t-full" aria-hidden />
+              )}
             </Link>
           ))}
         </nav>
@@ -157,7 +172,11 @@ export function SiteHeader() {
               <Link
                 ref={i === 0 ? firstLinkRef : undefined}
                 href={item.href}
-                className="flex min-h-12 items-center border-b border-line py-3 text-base font-semibold text-navy"
+                className={[
+                  "flex min-h-12 items-center border-b border-line py-3 text-base font-semibold transition-colors",
+                  isActive(item.href) ? "text-navy bg-navy/5" : "text-navy",
+                ].join(" ")}
+                aria-current={isActive(item.href) ? "page" : undefined}
                 onClick={() => setOpen(false)}
               >
                 {item.label}

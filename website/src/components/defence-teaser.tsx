@@ -3,15 +3,24 @@
 import { Reveal } from "./reveal";
 import Link from "next/link";
 import Image from "next/image";
+import { ShieldIcon, CertificateIcon, IndiaIcon, FileTextIcon } from "./icons";
+import { Badge } from "./Badge";
+
+const CAPABILITIES = [
+  "Tactical UAVs",
+  "ISR Systems",
+  "Custom Payload",
+  "Flight Training",
+];
+
+const COMPLIANCE_BADGES = [
+  { label: "ITAR-Free Design", variant: "outline" as const, icon: <ShieldIcon className="h-4 w-4" /> },
+  { label: "DGCA Type Certified", variant: "outline" as const, icon: <CertificateIcon className="h-4 w-4" /> },
+  { label: "Make in India", variant: "outline" as const, icon: <IndiaIcon className="h-4 w-4" /> },
+  { label: "AES-256 Comms", variant: "outline" as const, icon: <FileTextIcon className="h-4 w-4" /> },
+];
 
 export function DefenceTeaser() {
-  const capabilities = [
-    "Tactical UAVs",
-    "ISR Systems",
-    "Custom Payload",
-    "Flight Training",
-  ];
-
   return (
     <section className="py-24 bg-navy-900 text-white relative overflow-hidden">
       {/* Ambient background glow */}
@@ -41,11 +50,20 @@ export function DefenceTeaser() {
                 Providing high-reliability unmanned systems and indigenous drone capability designed for rigorous defence and government requirements.
               </p>
 
-              <div className="flex flex-wrap gap-3 mb-10">
-                {capabilities.map((cap) => (
+              <div className="flex flex-wrap gap-3 mb-6">
+                {CAPABILITIES.map((cap) => (
                   <span key={cap} className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm">
                     {cap}
                   </span>
+                ))}
+              </div>
+
+              {/* Compliance badges */}
+              <div className="mb-8 flex flex-wrap gap-3" role="list" aria-label="Compliance and certifications">
+                {COMPLIANCE_BADGES.map((badge, idx) => (
+                  <Badge key={badge.label} variant={badge.variant} size="sm" className="gap-1.5" icon={badge.icon}>
+                    {badge.label}
+                  </Badge>
                 ))}
               </div>
 

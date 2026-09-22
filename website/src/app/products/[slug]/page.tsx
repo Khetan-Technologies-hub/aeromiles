@@ -46,7 +46,7 @@ export default async function ProductPage({ params }: Props) {
   return (
     <main className="min-h-screen bg-white pb-20">
       {/* Breadcrumbs */}
-      <nav className="max-w-7xl mx-auto px-4 pt-8 pb-4" aria-label="Breadcrumb">
+      <nav className="container mx-auto px-6 pt-8 pb-4" aria-label="Breadcrumb">
         <ol className="flex items-center gap-2 text-sm text-slate-500">
           <li>
             <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
@@ -62,7 +62,7 @@ export default async function ProductPage({ params }: Props) {
         </ol>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

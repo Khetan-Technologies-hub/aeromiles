@@ -2,6 +2,13 @@
 
 import { Reveal } from "./reveal";
 import Link from "next/link";
+import { ClockIcon, FileTextIcon, UsersIcon } from "./icons";
+
+const TRUST_SIGNALS = [
+  { label: "24-hour response SLA", icon: ClockIcon },
+  { label: "NDA-ready discussions", icon: FileTextIcon },
+  { label: "3 verticals, one partner", icon: UsersIcon },
+];
 
 export function FinalCTA() {
   return (
@@ -17,6 +24,20 @@ export function FinalCTA() {
           >
             Talk to our team
           </Link>
+
+          {/* Trust signals */}
+          <Reveal delay={0.2} className="mt-16">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 text-white/80">
+              {TRUST_SIGNALS.map((signal, idx) => (
+                <div key={signal.label} className="flex items-center gap-3 font-medium">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+                    <signal.icon className="h-5 w-5" />
+                  </span>
+                  {signal.label}
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </Reveal>
       </div>
 

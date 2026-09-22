@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 import { getLabPrograms } from "@/lib/content";
-import EducationHero from "@/components/education/EducationHero";
+import { EducationHero } from "@/components/education/EducationHero";
 import ProgramSection from "@/components/education/ProgramSection";
 import LabOfferingGrid from "@/components/education/LabOfferingGrid";
-import EducationCTA from "@/components/education/EducationCTA";
+import { EducationCTA } from "@/components/education/EducationCTA";
+import { Section } from "@/components/Section";
 import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
@@ -18,21 +19,23 @@ export default function EducationPage() {
     <main className="min-h-screen bg-white">
       <EducationHero />
 
-      <div id="programs" className="relative">
-        {programs.map((program, idx) => (
-          <Reveal key={program.slug}>
-            <ProgramSection program={program} index={idx} />
-          </Reveal>
-        ))}
-      </div>
+      <Section id="programs" variant="default" padding="none" reveal revealDelay={0.1}>
+        <div className="relative">
+          {programs.map((program, idx) => (
+            <Reveal key={program.slug} delay={idx * 0.1}>
+              <ProgramSection program={program} index={idx} />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
 
-      <Reveal>
+      <Section variant="soft" padding="2xl" reveal revealDelay={0.2}>
         <LabOfferingGrid />
-      </Reveal>
+      </Section>
 
-      <Reveal>
+      <Section variant="navy" padding="2xl" reveal revealDelay={0.3}>
         <EducationCTA />
-      </Reveal>
+      </Section>
     </main>
   );
 }

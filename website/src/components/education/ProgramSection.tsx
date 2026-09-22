@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import { motion } from "framer-motion";
 import { LabProgram } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -14,9 +12,12 @@ export default function ProgramSection({ program, index }: ProgramSectionProps) 
   const isEven = index % 2 === 0;
 
   return (
-    <section className="py-16 lg:py-24">
+    <div className={cn(
+      "py-16 lg:py-24",
+      isEven ? "" : "lg:order-2"
+    )}>
       <div className={cn(
-        "max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center",
+        "container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center",
         isEven ? "text-left" : "text-right"
       )}>
         {/* Image/Visual Side */}
@@ -60,6 +61,6 @@ export default function ProgramSection({ program, index }: ProgramSectionProps) 
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
