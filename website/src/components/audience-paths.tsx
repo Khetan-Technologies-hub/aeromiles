@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./reveal";
 import Link from "next/link";
-import { ArrowRightIcon } from "./icons";
+import { ArrowRightIcon, SchoolIcon, ShieldIcon, PlaneIcon } from "./icons";
 
 type AudiencePath = {
   title: string;
@@ -11,6 +11,7 @@ type AudiencePath = {
   color: string;
   accentColor: string;
   href: string;
+  icon: React.ComponentType<{ className?: string }>;
 };
 
 const PATHS: AudiencePath[] = [
@@ -20,6 +21,7 @@ const PATHS: AudiencePath[] = [
     color: "bg-blue/10",
     accentColor: "bg-blue",
     href: "/education",
+    icon: SchoolIcon,
   },
   {
     title: "Defence & Govt",
@@ -27,6 +29,7 @@ const PATHS: AudiencePath[] = [
     color: "bg-green/10",
     accentColor: "bg-green",
     href: "/defence",
+    icon: ShieldIcon,
   },
   {
     title: "Aviation Hobbyists",
@@ -34,6 +37,7 @@ const PATHS: AudiencePath[] = [
     color: "bg-saffron/10",
     accentColor: "bg-saffron",
     href: "/products",
+    icon: PlaneIcon,
   },
 ];
 
@@ -60,6 +64,11 @@ export function AudiencePaths() {
               >
                 {/* Accent Top Bar */}
                 <div className={`absolute top-0 left-0 right-0 h-1.5 rounded-t-3xl ${path.accentColor}`} />
+
+                {/* Icon */}
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/80 text-navy">
+                  <path.icon className="h-7 w-7" />
+                </div>
 
                 <h3 className="text-2xl font-bold text-navy mb-4">{path.title}</h3>
                 <p className="mb-8 max-w-[60ch] leading-relaxed text-slate">

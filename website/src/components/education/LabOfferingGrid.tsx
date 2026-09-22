@@ -1,73 +1,78 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/reveal";
+import {
+  BookOpenIcon,
+  WrenchIcon,
+  GraduationCapIcon,
+  HeadphonesIcon,
+  TrophyIcon,
+  FileTextIcon,
+} from "@/components/icons";
 
 const OFFERINGS = [
   {
     title: "Structured Curriculum",
     desc: "A phased learning path from basic aerodynamics to complex flight dynamics.",
-    icon: "📚",
+    icon: BookOpenIcon,
   },
   {
     title: "Hardware Kits",
     desc: "Precision-engineered aircraft kits and tools for hands-on assembly.",
-    icon: "🛠️",
+    icon: WrenchIcon,
   },
   {
     title: "Teacher Training",
     desc: "Certification programs to empower educators to lead STEM labs confidently.",
-    icon: "🎓",
+    icon: GraduationCapIcon,
   },
   {
     title: "Technical Support",
     desc: "On-ground and remote assistance for maintenance and troubleshooting.",
-    icon: "🎧",
+    icon: HeadphonesIcon,
   },
   {
     title: "Competitions",
     desc: "Opportunities to showcase skill in national and international events.",
-    icon: "🏆",
+    icon: TrophyIcon,
   },
   {
     title: "Certification",
     desc: "Industry-recognized certificates upon completion of program milestones.",
-    icon: "📜",
+    icon: FileTextIcon,
   },
 ];
 
 export default function LabOfferingGrid() {
   return (
-    <section className="py-20 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4">
+    <div>
+      <Reveal>
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-navy-900 mb-4">The Complete Ecosystem</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            We don't just provide kits; we provide a comprehensive learning environment.
+          <h2 className="text-3xl font-extrabold text-navy sm:text-5xl tracking-tight mb-4">The Complete Ecosystem</h2>
+          <p className="mx-auto max-w-2xl text-lg text-slate leading-relaxed">
+            We don&apos;t just provide kits; we provide a comprehensive learning environment.
           </p>
         </div>
+      </Reveal>
 
+      <Reveal delay={0.1}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {OFFERINGS.map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-8 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all group"
-            >
-              <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                {item.icon}
+            <Reveal key={item.title} delay={idx * 0.1}>
+              <div className="p-8 bg-white rounded-2xl border border-line shadow-sm hover:shadow-md transition-all group">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue/10 text-blue mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <item.icon className="h-6 w-6" />
+                </div>
+                <h3 className="text-xl font-bold text-navy mb-3">{item.title}</h3>
+                <p className="text-slate leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-navy-900 mb-3">{item.title}</h3>
-              <p className="text-slate-600 leading-relaxed">
-                {item.desc}
-              </p>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
-      </div>
-    </section>
+      </Reveal>
+    </div>
   );
 }

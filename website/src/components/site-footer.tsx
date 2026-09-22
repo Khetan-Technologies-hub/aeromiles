@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { CONTACT, NAV_ITEMS, SITE, SOCIALS, type SocialLink } from "@/lib/site";
 import { ArrowRightIcon } from "./icons";
+import { CertificationGrid } from "./TrustBadges";
+import { IndiaIcon, ShieldIcon, FileTextIcon, CheckIcon } from "./icons";
 
 function SocialIcon({ icon }: { icon: SocialLink["icon"] }) {
   const common = {
@@ -36,9 +38,33 @@ function SocialIcon({ icon }: { icon: SocialLink["icon"] }) {
 export function SiteFooter() {
   const year = new Date().getFullYear();
 
+  const certifications = [
+    {
+      name: "Make in India",
+      description: "Indigenous manufacturing",
+      logo: <IndiaIcon className="h-8 w-8 text-blue" />
+    },
+    {
+      name: "DGCA Compliant",
+      description: "Civil aviation standards",
+      logo: <ShieldIcon className="h-8 w-8 text-blue" />
+    },
+    {
+      name: "ITAR-Free",
+      description: "No US export restrictions",
+      logo: <FileTextIcon className="h-8 w-8 text-blue" />
+    },
+    {
+      name: "ISO 9001:2015",
+      description: "Quality management",
+      logo: <CheckIcon className="h-8 w-8 text-blue" />
+    },
+  ];
+
   return (
     <footer className="bg-navy-900 text-white/70">
       <div className="mx-auto max-w-[1200px] px-6 pb-7 pt-16">
+        <CertificationGrid certifications={certifications} columns={4} className="mb-12" />
         <div className="grid gap-9 md:grid-cols-[1.6fr_1fr_1fr]">
           {/* Brand */}
           <div>
