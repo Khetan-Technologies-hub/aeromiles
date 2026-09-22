@@ -21,15 +21,15 @@ const sora = Sora({
 
 export const metadata: Metadata = {
   title: {
-    default: "Aeromiles — RC Planes, Drones & Aeromodelling Labs",
+    default: "Aeromiles | Pioneering RC Planes, Drones & STEM Labs",
     template: "%s · Aeromiles",
   },
   description:
-    "Aeromiles designs RC planes and drones, builds K–12 & college aeromodelling labs, and delivers drone capability for defence and government.",
+    "Pioneering the next generation of aerospace innovation in India. We provide high-performance RC aircraft, modern STEM labs, and advanced UAV capability for defence.",
   openGraph: {
-    title: "Aeromiles — RC Planes, Drones & Aeromodelling Labs",
+    title: "Aeromiles | Pioneering RC Planes, Drones & STEM Labs",
     description:
-      "RC planes, drones and aeromodelling labs — engineered in India for classrooms, hobbyists and defence.",
+      "Pioneering the next generation of aerospace innovation in India. We provide high-performance RC aircraft, modern STEM labs, and advanced UAV capability for defence.",
     siteName: "Aeromiles",
     locale: "en_IN",
     type: "website",

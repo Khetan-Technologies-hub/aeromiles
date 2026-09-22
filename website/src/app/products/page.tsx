@@ -4,8 +4,8 @@ import { ProductGrid } from "@/components/product-grid";
 import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "Our Fleet",
-  description: "Explore the Aeromiles range of precision aircraft, tactical drones, and indigenous defence systems.",
+  title: "Precision UAVs & RC Aircraft Fleet | Aeromiles",
+  description: "Explore our fleet of precision-engineered aircraft, from STEM-focused trainers for aeromodelling labs to tactical UAV systems with indigenous defence capability.",
 };
 
 export default function ProductsPage() {

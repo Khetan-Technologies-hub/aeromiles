@@ -6,21 +6,7 @@ import { Reveal } from "./reveal";
 import { TrustBadges } from "./TrustBadges";
 import Link from "next/link";
 
-const HERO_FACTS = [
-  "3 flight verticals",
-  "K-12 to college labs",
-  "India designed & built",
-];
-
-const TRUST_BADGES = [
-  { label: "ISO 9001:2015", type: "certification" as const },
-  { label: "DRDO Partner", type: "partner" as const },
-  { label: "Make in India", type: "certification" as const },
-  { label: "DGCA Approved", type: "certification" as const },
-  { label: "50+ Institutions", type: "stat" as const },
-];
-
-export function Hero() {
+export function Hero({ homeData }: { homeData: any }) {
   const prefersReduced = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -37,10 +23,6 @@ export function Hero() {
   const moveX = useTransform(dx, [-0.5, 0.5], [-20, 20]);
   const moveY = useTransform(dy, [-0.5, 0.5], [-20, 20]);
 
-  // The looping background video is decoration: when the viewer prefers
-  // reduced motion we freeze it on the first frame and fall back to the
-  // poster image. (Aeromiles_Animation_Spec.md — every motion needs a
-  // reduced-motion fallback.)
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -64,7 +46,6 @@ export function Hero() {
       onMouseMove={handleMouseMove}
       aria-labelledby="hero-heading"
     >
-      {/* Background Video Layer — decorative, muted, poster fallback */}
       <div className="absolute inset-0 z-0" aria-hidden>
         <video
           ref={videoRef}
@@ -79,21 +60,16 @@ export function Hero() {
         >
           <source src="/videos/hero-flight.mp4" type="video/mp4" />
         </video>
-
-        {/* Cinematic overlay — also the contrast floor for the copy above it.
-            Kept dense enough that white/75 body text clears 4.5:1. */}
         <div className="absolute inset-0 bg-navy/55" />
         <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/30 to-navy" />
       </div>
 
-      {/* Decorative Blue Circle Motif (Parallaxed) - Kept subtle */}
       <motion.div
         style={prefersReduced ? undefined : { x: moveX, y: moveY }}
         className="pointer-events-none absolute -right-20 -top-20 h-[600px] w-[600px] rounded-full bg-blue/10 blur-[140px]"
         aria-hidden
       />
 
-      {/* Content Layer */}
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pb-10 pt-28 text-center text-white">
         <div className="max-w-4xl">
           <Reveal>
@@ -107,15 +83,13 @@ export function Hero() {
               id="hero-heading"
               className="text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl"
             >
-              Building India&apos;s next
-              <br className="hidden sm:block" /> generation of flight
+              {homeData.hero.headline}
             </h1>
           </Reveal>
 
           <Reveal delay={0.16}>
             <p className="mx-auto mt-8 max-w-2xl text-lg font-medium text-white/90 sm:text-xl">
-              RC aircraft, drones and hands-on aeromodelling labs—from first
-              flight to mission-ready systems.
+              {homeData.hero.subheadline}
             </p>
           </Reveal>
 
@@ -138,24 +112,21 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Fact row — in normal flow so it can never overlap the CTAs on short
-          or landscape-phone viewports. */}
       <Reveal delay={0.32} className="relative z-10 w-full">
         <ul className="mx-auto flex max-w-[1200px] flex-col items-center justify-center gap-4 px-6 pb-10 sm:flex-row sm:gap-x-16">
-          {HERO_FACTS.map((fact) => (
-            <li key={fact} className="flex items-center gap-3">
+          {homeData.hero.facts.map((fact: any, idx: number) => (
+            <li key={idx} className="flex items-center gap-3">
               <span className="h-1.5 w-1.5 rounded-full bg-blue" aria-hidden />
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-white/80">
-                {fact}
+                {fact.value}: {fact.label}
               </span>
             </li>
           ))}
         </ul>
       </Reveal>
 
-      {/* Trust Badges — below the fold for credibility */}
       <Reveal delay={0.4} className="relative z-10 w-full pb-10">
-        <TrustBadges badges={TRUST_BADGES} variant="grid" />
+        <TrustBadges badges={homeData.hero.trustBadges.map((badge: string) => ({ label: badge, type: "certification" as const }))} variant="grid" />
       </Reveal>
     </section>
   );

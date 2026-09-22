@@ -6,10 +6,11 @@
 export type NavItem = { label: string; href: string };
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Schools", href: "/education" },
-  { label: "Defence", href: "/defence" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/" },
+  { label: "Aeromiles for Schools", href: "/education" },
+  { label: "Aeromiles for Defence", href: "/defence" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export const CONTACT = {

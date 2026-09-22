@@ -8,8 +8,8 @@ import { Section } from "@/components/Section";
 import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "STEM Aeromodelling Labs | Aeromiles",
-  description: "Empowering schools and colleges with comprehensive aeromodelling labs, structured curriculum, and industry-grade drone capability.",
+  title: "Aeromodelling Labs for Schools & Colleges | STEM Education by Aeromiles",
+  description: "Transform your institution with Aeromiles' turnkey aeromodelling labs. We integrate STEM education with hands-on drone technology to build the next generation of aerospace engineers.",
 };
 
 export default function EducationPage() {

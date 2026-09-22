@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { CheckIcon, SchoolIcon, UsersIcon, CertificateIcon } from "@/components/icons";
 import { LabProgram } from "@/lib/content";
+import { LabOfferingCard } from "./LabOfferingCard";
 
 interface EducationLabOfferingsProps {
   programs: LabProgram[];
@@ -14,19 +15,16 @@ export default function EducationLabOfferings({ programs }: EducationLabOffering
     "k12-lab": SchoolIcon,
     "college-lab": UsersIcon,
     "teacher-training": CertificateIcon,
+    "default": CertificateIcon,
   };
 
   const displayedPrograms = [...programs];
-
-
-  // Check if Teacher Training is missing from programs, if so add as a placeholder
-  // to fulfill the "grid of 3" requirement if content is still being populated.
   const hasTeacherTraining = programs.some(p => p.title.toLowerCase().includes("teacher"));
   if (!hasTeacherTraining) {
     displayedPrograms.push({
       title: "Teacher Training",
       slug: "teacher-training",
-      audience: "college", // fallback
+      audience: "college",
       summary: "Certification programs to empower educators to lead STEM labs confidently.",
       equipment: [],
       benefits: ["Curriculum guidance", "Lab management tools", "Pedagogical support"],
@@ -38,7 +36,6 @@ export default function EducationLabOfferings({ programs }: EducationLabOffering
     <section className="py-24 bg-bg-soft overflow-hidden">
       <div className="container px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
           {/* Left Side: Value Prop */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -101,39 +98,14 @@ export default function EducationLabOfferings({ programs }: EducationLabOffering
 
           {/* Right Side: Program Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {displayedPrograms.slice(0, 3).map((program, idx) => {
-              const Icon = programIcons[program.slug] || CertificateIcon;
-              return (
-                <motion.div
-                  key={program.slug}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 + (idx * 0.1) }}
-                  className="p-8 bg-white rounded-3xl border border-line shadow-sm hover:shadow-md transition-all group"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue/10 text-blue mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="h-6 w-6" />
-                  </div>
-
-                  <h3 className="text-xl font-display font-bold text-navy mb-3">
-                    {program.title}
-                  </h3>
-                  <p className="text-slate text-sm leading-relaxed mb-6">
-                    {program.summary}
-                  </p>
-
-                  <ul className="space-y-2">
-                    {program.benefits.slice(0, 3).map((benefit, bIdx) => (
-                      <li key={bIdx} className="flex items-center gap-2 text-xs text-ink/80">
-                        <div className="w-1 h-1 bg-blue rounded-full" />
-                        <span>{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              );
-            })}
+            {displayedPrograms.slice(0, 3).map((program, idx) => (
+              <LabOfferingCard
+                key={program.slug}
+                program={program}
+                index={idx}
+                icons={programIcons}
+              />
+            ))}
           </div>
         </div>
       </div>

@@ -5,15 +5,16 @@ import { FeaturedProducts } from "@/components/featured-products";
 import { EducationTeaser } from "@/components/education-teaser";
 import { DefenceTeaser } from "@/components/defence-teaser";
 import { FinalCTA } from "@/components/final-cta";
-import { getFeaturedProducts } from "@/lib/content";
+import { getFeaturedProducts, getHomeContent } from "@/lib/content";
 
 export default function Home() {
   const featuredProducts = getFeaturedProducts();
+  const homeData = getHomeContent();
 
   return (
     <main id="main" className="flex min-h-dvh flex-col bg-bg">
-      <Hero />
-      <AudiencePaths />
+      <Hero homeData={homeData} />
+      <AudiencePaths paths={homeData.audiencePaths} />
       <ImpactStats />
       <FeaturedProducts products={featuredProducts} />
       <EducationTeaser />

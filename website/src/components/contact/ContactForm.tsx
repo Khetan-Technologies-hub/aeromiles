@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, FormEvent } from "react";
 import { FormField, FormSelect } from "@/components/FormField";
 import { useToast } from "@/components/Toast";
@@ -58,7 +59,6 @@ export function ContactForm() {
 
     setIsSubmitting(true);
 
-    // Prepare form data for Web3Forms
     const formBody = new FormData();
     formBody.append("access_key", WEB3FORMS_ACCESS_KEY);
     formBody.append("name", formData.name);
@@ -100,7 +100,7 @@ export function ContactForm() {
           name="name"
           value={formData.name}
           onChange={handleChange("name")}
-          placeholder="Your name"
+          placeholder="Enter your full name"
           required
           error={errors.name}
         />
@@ -110,7 +110,7 @@ export function ContactForm() {
           name="email"
           value={formData.email}
           onChange={handleChange("email")}
-          placeholder="you@domain.com"
+          placeholder="Business email address"
           required
           error={errors.email}
         />
@@ -148,8 +148,8 @@ export function ContactForm() {
         type="textarea"
         name="message"
         value={formData.message}
-        onChange={handleChange}
-        placeholder="Describe your requirement, project, or question..."
+        onChange={handleChange("message")}
+        placeholder="Tell us about your project or aviation requirements..."
         required
         error={errors.message}
         helperText="Minimum 20 characters. Include timeline, budget range, or specific questions if applicable."
@@ -173,7 +173,7 @@ export function ContactForm() {
       </button>
 
       <p className="text-xs text-slate text-center">
-        By submitting, you agree to our <a href="#" className="underline hover:text-navy">Privacy Policy</a>. No spam — we only use this to respond to your inquiry.
+        By submitting, you agree to our <Link href="/privacy" className="underline hover:text-navy">Privacy Policy</Link>. No spam — we only use this to respond to your inquiry.
       </p>
     </form>
   );

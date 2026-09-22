@@ -8,8 +8,8 @@ import { AboutCTA } from "@/components/about/AboutCTA";
 import { Section } from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "About Aeromiles | Building India's Next Generation of Flight",
-  description: "Learn about Aeromiles' mission to advance indigenous aerospace capability through RC aircraft, STEM labs, and defence UAV systems.",
+  title: "About Aeromiles | Pioneering India's Indigenous Aerospace Future",
+  description: "Discover how Aeromiles is launching a new era of STEM education through modern aeromodelling labs and advancing national security with cutting-edge UAV capability.",
 };
 
 export default function AboutPage() {

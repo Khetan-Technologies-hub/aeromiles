@@ -19,6 +19,24 @@ const CONTENT_DIR = join(process.cwd(), "content");
 
 const specSchema = z.object({ label: z.string(), value: z.string() });
 
+export const homeSchema = z.object({
+  title: z.string(),
+  hero: z.object({
+    headline: z.string(),
+    subheadline: z.string(),
+    facts: z.array(specSchema),
+    trustBadges: z.array(z.string()),
+  }),
+  audiencePaths: z.array(
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      link: z.string(),
+      icon: z.string(),
+    })
+  ),
+});
+
 export const productSchema = z.object({
   title: z.string(),
   category: z.enum(["plane", "drone", "defence"]),
@@ -75,6 +93,37 @@ export type Testimonial = WithSlug<z.infer<typeof testimonialSchema>>;
 export type ProductCategory = Product["category"];
 
 /* ------------------------------ loader --------------------------------- */
+
+/**
+ * Read a single MD file from `content/`.
+ */
+export function getPageContent(slug: string) {
+  const filePath = join(CONTENT_DIR, `${slug}.md`);
+  try {
+    const raw = readFileSync(filePath, "utf8");
+    const { data, content } = matter(raw);
+    return { ...data, body: content };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Read a single MD file and validate it with a schema.
+ */
+export function getValidatedPageContent<S extends z.ZodType>(
+  slug: string,
+  schema: S,
+): z.infer<S> {
+  const filePath = join(CONTENT_DIR, `${slug}.md`);
+  const raw = readFileSync(filePath, "utf8");
+  const { data } = matter(raw);
+  const parsed = schema.safeParse(data);
+  if (!parsed.success) {
+    throw new Error(`Invalid frontmatter in content/${slug}.md`);
+  }
+  return parsed.data;
+}
 
 /**
  * Read + validate every `.md` file in `content/<dir>`. Slug = filename.
@@ -147,4 +196,8 @@ export function getDefenceCapabilities(): DefenceCapability[] {
 
 export function getTestimonials(): Testimonial[] {
   return loadCollection("testimonials", testimonialSchema).sort(byOrder);
+}
+
+export function getHomeContent() {
+  return getValidatedPageContent("home", homeSchema);
 }
