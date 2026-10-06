@@ -14,10 +14,10 @@ const CAPABILITIES = [
 ];
 
 const COMPLIANCE_BADGES = [
-  { label: "ITAR-Free Design", variant: "outline" as const, icon: <ShieldIcon className="h-4 w-4" /> },
-  { label: "DGCA Type Certified", variant: "outline" as const, icon: <CertificateIcon className="h-4 w-4" /> },
-  { label: "Make in India", variant: "outline" as const, icon: <IndiaIcon className="h-4 w-4" /> },
-  { label: "AES-256 Comms", variant: "outline" as const, icon: <FileTextIcon className="h-4 w-4" /> },
+  { label: "ITAR-Free Design", variant: "outline" as const, icon: <ShieldIcon className="h-4 w-4 text-white/90" /> },
+  { label: "DGCA Type Certified", variant: "outline" as const, icon: <CertificateIcon className="h-4 w-4 text-white/90" /> },
+  { label: "Make in India", variant: "outline" as const, icon: <IndiaIcon className="h-4 w-4 text-white/90" /> },
+  { label: "AES-256 Comms", variant: "outline" as const, icon: <FileTextIcon className="h-4 w-4 text-white/90" /> },
 ];
 
 export function DefenceTeaser() {
@@ -61,7 +61,7 @@ export function DefenceTeaser() {
               {/* Compliance badges */}
               <div className="mb-8 flex flex-wrap gap-3" role="list" aria-label="Compliance and certifications">
                 {COMPLIANCE_BADGES.map((badge, idx) => (
-                  <Badge key={badge.label} variant={badge.variant} size="sm" className="gap-1.5" icon={badge.icon}>
+                  <Badge key={badge.label} variant={badge.variant} size="sm" className="gap-1.5 border-white/50 bg-white/10 text-white/90" icon={badge.icon}>
                     {badge.label}
                   </Badge>
                 ))}

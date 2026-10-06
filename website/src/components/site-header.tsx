@@ -50,7 +50,7 @@ export function SiteHeader() {
         "fixed inset-x-0 top-0 z-[var(--z-header)] transition-all duration-500 ease-in-out",
         solid
           ? "bg-navy/90 backdrop-blur-md py-2 shadow-lg"
-          : "bg-transparent py-4",
+          : "bg-navy py-2",
       ].join(" ")}
     >
       <div
@@ -63,20 +63,22 @@ export function SiteHeader() {
         >
           <div className="relative transition-transform duration-300 group-hover:scale-105">
             <Image
-              src="/logo.png"
+              src={solid ? "/logo.png" : "/logo.png"}
               alt="Aeromiles Logo"
               width={200}
               height={60}
               className={[
-                "h-auto w-auto object-contain transition-all duration-300",
-                solid ? "h-6 drop-shadow-[0_0_4px_rgba(255,255,255,0.3)]" : "h-10 drop-shadow-[0_0_12px_rgba(255,255,255,0.6)]",
+                "w-auto object-contain transition-all duration-300",
+                solid
+                  ? "h-14 drop-shadow-[0_0_4px_rgba(255,255,255,0.3)]"
+                  : "h-14 drop-shadow-[0_0_12px_rgba(255,255,255,0.6)]",
               ].join(" ")}
               priority
             />
           </div>
         </Link>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 xl:absolute xl:left-1/2 xl:-translate-x-1/2">
           <nav
             aria-label="Primary"
             className="hidden items-center gap-6 lg:flex"
@@ -86,7 +88,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={[
-                  "relative inline-flex h-6 items-center rounded-full px-3 text-xs font-bold transition-all duration-300 whitespace-nowrap",
+                  "relative inline-flex h-8 items-center rounded-full px-3 text-sm font-bold transition-all duration-300 whitespace-nowrap",
                   solid
                     ? isActive(item.href)
                       ? "text-white bg-blue"
@@ -103,19 +105,20 @@ export function SiteHeader() {
                 )}
               </Link>
             ))}
-            <Link
-              href="/contact"
-              className={[
-                "ml-2 inline-flex h-10 items-center justify-center rounded-full px-6 text-sm font-bold transition-all duration-300 shadow-sm whitespace-nowrap",
-                solid
-                  ? "bg-white text-navy hover:bg-blue hover:text-white"
-                  : "bg-blue text-white hover:bg-white hover:text-navy ring-1 ring-white/20",
-              ].join(" ")}
-            >
-              Get a Quote
-            </Link>
           </nav>
         </div>
+
+        <Link
+          href="/contact"
+          className={[
+            "ml-auto hidden h-10 items-center justify-center whitespace-nowrap rounded-full px-6 text-sm font-bold shadow-sm transition-all duration-300 lg:inline-flex",
+            solid
+              ? "bg-white text-navy hover:bg-blue hover:text-white"
+              : "bg-blue text-white hover:bg-white hover:text-navy ring-1 ring-white/20",
+          ].join(" ")}
+        >
+          Get a Quote
+        </Link>
 
         <button
           ref={toggleRef}
