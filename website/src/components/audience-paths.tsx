@@ -31,28 +31,32 @@ export function AudiencePaths({ paths }: { paths: any[] }) {
             return (
               <Reveal key={path.title} delay={idx * 0.1}>
                 <motion.div
-                  whileHover={prefersReduced ? undefined : { y: -8 }}
-                  className={`group relative flex h-full flex-col rounded-3xl border border-line p-8 transition-shadow hover:shadow-xl bg-blue/10`}
+                  whileHover={prefersReduced ? {} : { y: -12, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className={`group relative flex h-full flex-col rounded-3xl border border-line p-8 transition-all duration-300 hover:shadow-2xl bg-white`}
+                  aria-labelledby={`path-title-${idx}`}
                 >
                   {/* Accent Top Bar */}
-                  <div className="absolute top-0 left-0 right-0 h-1.5 rounded-t-3xl bg-blue" />
+                  <div className={`absolute top-0 left-0 right-0 h-2 rounded-t-3xl transition-colors duration-300 ${path.color}`} />
 
                   {/* Icon */}
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/80 text-navy">
+                  <div className={`mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm text-navy ring-1 ring-line`}>
                     <Icon className="h-7 w-7" />
                   </div>
 
-                  <h3 className="text-2xl font-bold text-navy mb-4">{path.title}</h3>
+                  <h3 id={`path-title-${idx}`} className="text-2xl font-bold text-navy mb-4">
+                    {path.title}
+                  </h3>
                   <p className="mb-8 max-w-[60ch] leading-relaxed text-slate">
                     {path.description}
                   </p>
 
                   <Link
                     href={path.link}
-                    className="mt-auto inline-flex min-h-11 items-center gap-2 font-bold text-navy"
+                    className="mt-auto inline-flex min-h-11 items-center gap-2 font-bold text-navy group-hover:text-blue transition-colors duration-200"
                   >
-                    Explore
-                    <ArrowRightIcon className="text-blue transition-transform duration-200 group-hover:translate-x-1" />
+                    Learn More
+                    <ArrowRightIcon className={`transition-transform duration-200 group-hover:translate-x-1 ${path.color.replace('bg-', 'text-')}`} />
                     <span className="sr-only">{path.title}</span>
                   </Link>
                 </motion.div>
