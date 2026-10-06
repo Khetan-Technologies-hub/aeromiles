@@ -65,8 +65,8 @@ export function SiteHeader() {
             <Image
               src={solid ? "/logo-condensed.png" : "/logo.png"}
               alt="Aeromiles Logo"
-              width={solid ? 150 : 200}
-              height={solid ? 40 : 60}
+              width={200}
+              height={60}
               className={[
                 "h-auto w-auto object-contain transition-all duration-300",
                 solid ? "h-8" : "h-12 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]",
@@ -108,7 +108,7 @@ export function SiteHeader() {
               "ml-4 inline-flex h-10 items-center justify-center rounded-full px-6 text-sm font-bold transition-all duration-300 shadow-sm",
               solid
                 ? "bg-white text-navy hover:bg-blue hover:text-white"
-                : "bg-blue text-white hover:bg-white hover:text-navy",
+                : "bg-blue text-white hover:bg-white hover:text-navy ring-1 ring-white/20",
             ].join(" ")}
           >
             Get a Quote
@@ -119,8 +119,10 @@ export function SiteHeader() {
           ref={toggleRef}
           type="button"
           className={[
-            "-mr-2.5 inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors lg:hidden",
-            solid ? "bg-white/10 text-white" : "bg-white/10 text-white",
+            "-mr-2.5 inline-flex h-11 w-11 items-center justify-center rounded-full transition-all duration-300 lg:hidden",
+            solid
+              ? "bg-white/10 text-white hover:bg-white/20"
+              : "bg-white/10 text-white hover:bg-white/20",
           ].join(" ")}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
@@ -157,8 +159,12 @@ export function SiteHeader() {
       <nav
         id="mobile-nav"
         aria-label="Primary (mobile)"
-        hidden={!open}
-        className="absolute inset-x-0 top-full border-t border-line bg-navy px-6 pb-8 pt-4 shadow-2xl lg:hidden transition-all duration-300"
+        className={[
+          "absolute inset-x-0 top-full border-t border-white/10 bg-navy px-6 pb-8 pt-4 shadow-2xl lg:hidden transition-all duration-300 ease-in-out",
+          open
+            ? "translate-y-0 opacity-100 visible"
+            : "-translate-y-2 opacity-0 invisible"
+        ].join(" ")}
       >
         <ul className="flex flex-col gap-2">
           {NAV_ITEMS.map((item, i) => (
