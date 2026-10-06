@@ -78,14 +78,14 @@ export function SiteHeader() {
 
         <nav
           aria-label="Primary"
-          className="hidden items-center gap-1 lg:flex"
+          className="hidden items-center gap-6 lg:flex"
         >
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={[
-                "relative inline-flex h-10 items-center rounded-full px-5 text-sm font-bold transition-all duration-300",
+                "relative inline-flex h-10 items-center rounded-full px-4 text-sm font-bold transition-all duration-300",
                 solid
                   ? isActive(item.href)
                     ? "text-white bg-blue"
@@ -105,7 +105,7 @@ export function SiteHeader() {
           <Link
             href="/contact"
             className={[
-              "ml-4 inline-flex h-10 items-center justify-center rounded-full px-6 text-sm font-bold transition-all duration-300 shadow-sm",
+              "ml-2 inline-flex h-10 items-center justify-center rounded-full px-6 text-sm font-bold transition-all duration-300 shadow-sm",
               solid
                 ? "bg-white text-navy hover:bg-blue hover:text-white"
                 : "bg-blue text-white hover:bg-white hover:text-navy ring-1 ring-white/20",
