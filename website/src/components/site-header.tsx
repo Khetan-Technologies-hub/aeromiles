@@ -76,44 +76,46 @@ export function SiteHeader() {
           </div>
         </Link>
 
-        <nav
-          aria-label="Primary"
-          className="hidden items-center gap-6 lg:flex"
-        >
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={[
-                "relative inline-flex h-10 items-center rounded-full px-4 text-sm font-bold transition-all duration-300",
-                solid
-                  ? isActive(item.href)
-                    ? "text-white bg-blue"
-                    : "text-white/90 hover:text-white hover:bg-white/10"
-                  : isActive(item.href)
-                    ? "text-white bg-white/20 backdrop-blur-sm"
-                    : "text-white/90 hover:text-white hover:bg-white/10",
-              ].join(" ")}
-              aria-current={isActive(item.href) ? "page" : undefined}
-            >
-              {item.label}
-              {isActive(item.href) && (
-                <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 w-4 rounded-full transition-all ${solid ? "bg-white" : "bg-white"}`} aria-hidden />
-              )}
-            </Link>
-          ))}
-          <Link
-            href="/contact"
-            className={[
-              "ml-2 inline-flex h-10 items-center justify-center rounded-full px-6 text-sm font-bold transition-all duration-300 shadow-sm",
-              solid
-                ? "bg-white text-navy hover:bg-blue hover:text-white"
-                : "bg-blue text-white hover:bg-white hover:text-navy ring-1 ring-white/20",
-            ].join(" ")}
+        <div className="flex items-center gap-6">
+          <nav
+            aria-label="Primary"
+            className="hidden items-center gap-6 lg:flex"
           >
-            Get a Quote
-          </Link>
-        </nav>
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={[
+                  "relative inline-flex h-10 items-center rounded-full px-4 text-sm font-bold transition-all duration-300 whitespace-nowrap",
+                  solid
+                    ? isActive(item.href)
+                      ? "text-white bg-blue"
+                      : "text-white/90 hover:text-white hover:bg-white/10"
+                    : isActive(item.href)
+                      ? "text-white bg-white/20 backdrop-blur-sm"
+                      : "text-white/90 hover:text-white hover:bg-white/10",
+                ].join(" ")}
+                aria-current={isActive(item.href) ? "page" : undefined}
+              >
+                {item.label}
+                {isActive(item.href) && (
+                  <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 w-4 rounded-full transition-all ${solid ? "bg-white" : "bg-white"}`} aria-hidden />
+                )}
+              </Link>
+            ))}
+            <Link
+              href="/contact"
+              className={[
+                "ml-2 inline-flex h-10 items-center justify-center rounded-full px-6 text-sm font-bold transition-all duration-300 shadow-sm whitespace-nowrap",
+                solid
+                  ? "bg-white text-navy hover:bg-blue hover:text-white"
+                  : "bg-blue text-white hover:bg-white hover:text-navy ring-1 ring-white/20",
+              ].join(" ")}
+            >
+              Get a Quote
+            </Link>
+          </nav>
+        </div>
 
         <button
           ref={toggleRef}
