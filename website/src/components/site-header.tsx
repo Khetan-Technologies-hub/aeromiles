@@ -63,13 +63,13 @@ export function SiteHeader() {
         >
           <div className="relative transition-transform duration-300 group-hover:scale-105">
             <Image
-              src={solid ? "/logo-condensed.png" : "/logo.png"}
+              src={solid ? "/logo.png" : "/logo.png"}
               alt="Aeromiles Logo"
               width={200}
               height={60}
               className={[
                 "h-auto w-auto object-contain transition-all duration-300",
-                solid ? "h-8" : "h-12 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]",
+                solid ? "h-8 drop-shadow-[0_0_4px_rgba(255,255,255,0.3)]" : "h-12 drop-shadow-[0_0_12px_rgba(255,255,255,0.6)]",
               ].join(" ")}
               priority
             />
