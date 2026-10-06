@@ -11,7 +11,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   plane: PlaneIcon,
 };
 
-export function AudiencePaths({ paths }: { paths: any[] }) {
+export function AudiencePaths({ paths }: { paths: { title: string; description: string; link: string; icon: string; color: string }[] }) {
   const prefersReduced = useReducedMotion();
 
   return (
@@ -56,7 +56,7 @@ export function AudiencePaths({ paths }: { paths: any[] }) {
                     className="mt-auto inline-flex min-h-11 items-center gap-2 font-bold text-navy group-hover:text-blue transition-colors duration-200"
                   >
                     Learn More
-                    <ArrowRightIcon className={`transition-transform duration-200 group-hover:translate-x-1 ${path.color.replace('bg-', 'text-')}`} />
+                    <ArrowRightIcon className={`transition-transform duration-200 group-hover:translate-x-1 ${path.color ? path.color.replace('bg-', 'text-') : 'text-blue'}`} />
                     <span className="sr-only">{path.title}</span>
                   </Link>
                 </motion.div>
