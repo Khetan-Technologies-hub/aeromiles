@@ -2,6 +2,7 @@
 title: College Aeromodelling & UAV Lab
 audience: college
 summary: Advanced build-and-fly programs for engineering and design students.
+image: "/images/products/placeholder.webp"
 equipment:
   - Fixed-wing and VTOL kits
   - Ground-station and telemetry

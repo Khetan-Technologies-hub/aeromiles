@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./reveal";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRightIcon, SchoolIcon, ShieldIcon, PlaneIcon } from "./icons";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -11,7 +12,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   plane: PlaneIcon,
 };
 
-export function AudiencePaths({ paths }: { paths: { title: string; description: string; link: string; icon: string; color: string }[] }) {
+export function AudiencePaths({ paths }: { paths: { title: string; description: string; link: string; icon: string; color?: string; image?: string }[] }) {
   const prefersReduced = useReducedMotion();
 
   return (
@@ -36,12 +37,23 @@ export function AudiencePaths({ paths }: { paths: { title: string; description: 
                   className={`group relative flex h-full flex-col rounded-3xl border border-line p-8 transition-all duration-300 hover:shadow-2xl bg-white`}
                   aria-labelledby={`path-title-${idx}`}
                 >
-                  {/* Accent Top Bar */}
-                  <div className={`absolute top-0 left-0 right-0 h-2 rounded-t-3xl transition-colors duration-300 ${path.color}`} />
+                  {/* Image Header */}
+                  <div className="relative h-48 w-full mb-6 overflow-hidden rounded-2xl">
+                    <img
+                      key={`img-${path.title}`}
+                      src={path.image || "/images/products/placeholder.webp"}
+                      alt={path.title}
+                      className="absolute inset-0 h-full w-full object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </div>
+
+                  {/* Accent Top Bar (Optional/Decorative now that we have images) */}
+                  <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-3xl transition-colors duration-300 ${path.color || 'bg-blue'}`} />
 
                   {/* Icon */}
-                  <div className={`mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm text-navy ring-1 ring-line`}>
-                    <Icon className="h-7 w-7" />
+                  <div className={`mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm text-navy ring-1 ring-line`}>
+                    <Icon className="h-6 w-6" />
                   </div>
 
                   <h3 id={`path-title-${idx}`} className="text-2xl font-bold text-navy mb-4">

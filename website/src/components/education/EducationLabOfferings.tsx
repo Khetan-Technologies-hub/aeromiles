@@ -28,6 +28,7 @@ export default function EducationLabOfferings({ programs }: EducationLabOffering
       summary: "Certification programs to empower educators to lead STEM labs confidently.",
       equipment: [],
       benefits: ["Curriculum guidance", "Lab management tools", "Pedagogical support"],
+      image: "/images/products/placeholder.webp",
       order: 3,
     });
   }
@@ -98,11 +99,25 @@ export default function EducationLabOfferings({ programs }: EducationLabOffering
 
           {/* Right Side: Program Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {displayedPrograms.slice(0, 3).map((program, idx) => (
+            <LabOfferingCard
+              program={{
+                title: "Test K-12 Lab",
+                slug: "k12-program",
+                audience: "k12",
+                summary: "This is a hardcoded test to see if images load.",
+                equipment: [],
+                benefits: ["Test 1", "Test 2"],
+                image: "/images/products/k12-lab.png",
+                order: 1,
+              }}
+              index={0}
+              icons={programIcons}
+            />
+            {displayedPrograms.slice(0, 2).map((program, idx) => (
               <LabOfferingCard
                 key={program.slug}
                 program={program}
-                index={idx}
+                index={idx + 1}
                 icons={programIcons}
               />
             ))}
