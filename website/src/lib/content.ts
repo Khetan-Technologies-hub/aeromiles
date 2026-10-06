@@ -24,6 +24,7 @@ export const homeSchema = z.object({
   hero: z.object({
     headline: z.string(),
     subheadline: z.string(),
+    image: z.string().optional(),
     facts: z.array(specSchema),
     trustBadges: z.array(z.string()),
   }),
@@ -33,6 +34,7 @@ export const homeSchema = z.object({
       description: z.string(),
       link: z.string(),
       icon: z.string(),
+      image: z.string().optional(),
     })
   ),
 });
@@ -44,6 +46,7 @@ export const productSchema = z.object({
   summary: z.string(),
   specs: z.array(specSchema).default([]),
   image: z.string().optional(),
+  images: z.array(z.string()).optional(),
   featured: z.boolean().default(false),
   order: z.number().default(0),
 });
@@ -60,6 +63,7 @@ export const labProgramSchema = z.object({
   title: z.string(),
   audience: z.enum(["k12", "college"]),
   summary: z.string(),
+  image: z.string().optional(),
   equipment: z.array(z.string()).default([]),
   benefits: z.array(z.string()).default([]),
   order: z.number().default(0),

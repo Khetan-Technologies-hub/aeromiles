@@ -39,8 +39,8 @@ export function FeaturedProducts({ products }: FeaturedProductsProps) {
                     className="relative h-full w-full"
                   >
                     <Image
-                      src={product.image || "/images/placeholder-product.webp"}
-                      alt=""
+                      src={product.image || (product.images && product.images[0]) || "/images/placeholder-product.webp"}
+                      alt={product.title}
                       fill
                       sizes="(min-width: 768px) 33vw, 100vw"
                       className="object-cover"

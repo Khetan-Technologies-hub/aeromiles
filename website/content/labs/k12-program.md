@@ -2,6 +2,7 @@
 title: K–12 Aeromodelling Lab
 audience: k12
 summary: Progressive, hands-on modules that turn classrooms into launchpads.
+image: "/images/products/k12-lab.png"
 equipment:
   - RC trainer kits
   - Drone workstations
