@@ -61,7 +61,7 @@ export function Hero({ homeData }: { homeData: any }) {
           <source src="/videos/hero-flight.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-navy/55" />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/30 to-navy" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/30 to-navy/70" />
       </div>
 
       <motion.div
@@ -99,13 +99,13 @@ export function Hero({ homeData }: { homeData: any }) {
                 href="/products"
                 className="focus-ring-light inline-flex min-h-12 w-full items-center justify-center rounded-full bg-blue px-10 py-4 font-bold text-white transition-colors hover:bg-blue-600 active:scale-95 sm:w-auto"
               >
-                Explore our capabilities
+                Explore Products
               </Link>
               <Link
                 href="/contact"
                 className="focus-ring-light inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/40 bg-white/10 px-10 py-4 font-bold text-white backdrop-blur-md transition-colors hover:bg-white/20 active:scale-95 sm:w-auto"
               >
-                Talk to our team
+                Request a Proposal
               </Link>
             </div>
           </Reveal>
@@ -127,6 +127,15 @@ export function Hero({ homeData }: { homeData: any }) {
 
       <Reveal delay={0.4} className="relative z-10 w-full pb-10">
         <TrustBadges badges={homeData.hero.trustBadges.map((badge: string) => ({ label: badge, type: "certification" as const }))} variant="grid" />
+      </Reveal>
+
+      <Reveal delay={0.5} className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/50">
+        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="h-6 w-px bg-gradient-to-b from-white/50 to-transparent"
+        />
       </Reveal>
     </section>
   );
