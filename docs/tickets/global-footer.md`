@@ -1,0 +1,57 @@
+# [M] Implement Global Footer
+
+## 📖 Story / Why
+The footer serves as the final anchor for every page, providing essential trust signals, legal information, and quick navigation. It ensures that regardless of where a user lands, they can easily find contact details and social links, reinforcing the professional credibility required for defence and government buyers.
+
+## 🧭 Context
+- **Location:** `website/src/components/` (reusable `Footer` component).
+- **Layout:** Integrated into `website/src/app/layout.tsx`.
+- **Styling:** Tailwind CSS using Navy `#0e2a4d` as the primary background.
+- **Content:** Data-driven approach; contact and social information should live in a configuration file (e.g., `src/lib/site-config.ts`) to avoid hardcoding.
+- **Deployment:** Verified locally via `npm run dev` before static export.
+
+## 🔑 Access & prerequisites
+- **Design Assets:** The developer must request the footer design mockup/Figma link from the Manager at `/start-ticket` to ensure an exact match.
+- **Logo Assets:** Use the white/light version of the logo optimized for dark backgrounds.
+- **Tools:** Next.js dev environment configured.
+
+## ✅ Scope / What to build
+- [ ] **Footer Component:**
+    - **Brand Section:** Logo, short company description (sourced from config).
+    - **Quick Links:** Organized columns for Products, Education, Defence, About, Contact.
+    - **Contact Info:** Email, Phone, and Address sourced from config.
+    - **Social Links:** Icons linked to social profiles (use placeholders if URLs are not yet provided).
+    - **Bottom Bar:** Copyright notice and placeholder links to Privacy Policy / Terms.
+- [ ] **Responsive Layout:**
+    - Stacked layout for mobile $\to$ multi-column grid for desktop.
+    - Touch-friendly targets (min 44px) for all links.
+
+## 🎯 Acceptance Criteria
+- [ ] **Visual Fidelity:** Exact match to the provided design assets.
+- [ ] **Contrast:** Text must pass WCAG AA contrast checks against the Navy background (reference `MASTER.md` for valid colors on navy).
+- [ ] **Responsiveness:** Verified from 360px up to desktop reflow.
+- [ ] **Interactions:** Consistent hover/focus states for all links.
+- [ ] **Structure:** Uses semantic `<footer>` tag.
+
+## 🖼️ UI standards
+- **Design fidelity:** Reproduce the provided design exactly. Ask PM for assets at `/start-ticket`.
+- **Theming:** Ensure visibility and consistency with the brand-navy theme.
+- **Responsiveness:** Desktop reflow + mobile-first approach.
+- **Layout:** Edge-to-edge background; content capped and centered on large screens.
+- **Accessibility:** Keyboard-operable links and high color contrast.
+
+## 🚫 Out of scope
+- Creating the actual legal pages (Privacy/Terms) — only the links in the footer.
+
+## 🔗 Dependencies
+- Brand tokens in `globals.css`.
+
+## 📚 References
+- `docs/PRD.md` §5.1 (Global)
+- `CLAUDE.md` (Brand tokens)
+- `design-system/aeromiles/MASTER.md` (Contrast rules)
+
+## 🤖 Kickoff prompt (paste into Claude Code)
+```
+/start-ticket <this-issue-number>
+```
