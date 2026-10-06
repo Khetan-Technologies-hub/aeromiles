@@ -128,15 +128,6 @@ export function Hero({ homeData }: { homeData: any }) {
       <Reveal delay={0.4} className="relative z-10 w-full pb-10">
         <TrustBadges badges={homeData.hero.trustBadges.map((badge: string) => ({ label: badge, type: "certification" as const }))} variant="grid" />
       </Reveal>
-
-      <Reveal delay={0.5} className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/50">
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="h-6 w-px bg-gradient-to-b from-white/50 to-transparent"
-        />
-      </Reveal>
     </section>
   );
 }
