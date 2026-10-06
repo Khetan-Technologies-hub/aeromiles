@@ -2,6 +2,7 @@
 
 import { LabProgram } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface ProgramSectionProps {
   program: LabProgram;
@@ -25,11 +26,12 @@ export default function ProgramSection({ program, index }: ProgramSectionProps) 
           "relative aspect-video rounded-3xl overflow-hidden bg-slate-100 border border-slate-200 shadow-2xl",
           isEven ? "lg:order-1" : "lg:order-2"
         )}>
-          <div className="absolute inset-0 flex items-center justify-center text-slate-400 italic">
-            {/* Placeholder for actual lab imagery */}
-            Program Visual: {program.title}
-          </div>
-          {/* <Image src={program.image} alt={program.title} fill className="object-cover" unoptimized /> */}
+          <Image
+            src="/images/education/curriculum-action.png"
+            alt={program.title}
+            fill
+            className="object-cover"
+          />
         </div>
 
         {/* Content Side */}

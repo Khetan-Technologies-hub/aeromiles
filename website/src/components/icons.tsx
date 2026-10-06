@@ -5,6 +5,8 @@
  * render differently per platform.
  */
 
+import { cn } from "@/lib/utils";
+
 type IconProps = {
   className?: string;
 };
@@ -27,6 +29,43 @@ export function ArrowRightIcon({ className }: IconProps) {
         strokeLinejoin="round"
       />
     </svg>
+  );
+}
+
+export function ArrowLeftIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      width="16"
+      height="16"
+      aria-hidden
+      className={className}
+    >
+      <path
+        d="M16 10H3m0 0 4.5-4.5M5 10l4.5 4.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function LessThanIcon({ className }: IconProps) {
+  return (
+    <span className={cn("text-2xl font-bold leading-none", className)}>
+      &lt;
+    </span>
+  );
+}
+
+export function GreaterThanIcon({ className }: IconProps) {
+  return (
+    <span className={cn("text-2xl font-bold leading-none", className)}>
+      &gt;
+    </span>
   );
 }
 

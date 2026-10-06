@@ -8,9 +8,9 @@ export function ContactHero() {
       {/* Ambient background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue/10 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10 py-20 text-center">
+      <div className="container mx-auto px-6 relative z-10 py-32 md:py-40 text-center">
         <Reveal>
-          <p className="text-sm font-bold uppercase tracking-[0.3em] text-blue mb-4">
+          <p className="text-sm font-bold uppercase tracking-[0.3em] text-blue mb-4 mt-12 sm:mt-0">
             Get in touch
           </p>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl mb-6">

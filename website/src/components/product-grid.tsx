@@ -99,7 +99,7 @@ export function ProductGrid({ products }: { products: Product[] }) {
                         className="relative h-full w-full"
                       >
                         <Image
-                          src={product.image || "/images/placeholder-product.webp"}
+                          src={product.images?.[0] || "/images/placeholder-product.webp"}
                           alt=""
                           fill
                           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"

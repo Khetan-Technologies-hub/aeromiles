@@ -54,7 +54,7 @@ export function Hero({ homeData }: { homeData: any }) {
           loop
           playsInline
           preload="metadata"
-          poster="/images/hero-poster.webp"
+          poster="/images/home-hero.png"
           tabIndex={-1}
           className="h-full w-full object-cover"
         >

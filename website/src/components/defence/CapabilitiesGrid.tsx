@@ -3,6 +3,7 @@
 import { Reveal } from "@/components/reveal";
 import { Card, CardMedia } from "@/components/Card";
 import { DefenceCapability } from "@/lib/content";
+import Image from "next/image";
 
 interface CapabilitiesGridProps {
   capabilities: DefenceCapability[];
@@ -53,9 +54,18 @@ export function CapabilitiesGrid({ capabilities }: CapabilitiesGridProps) {
           <Reveal key={capability.slug} delay={idx * 0.1}>
             <Card hoverLift className="h-full flex flex-col bg-white border-navy/20">
               <CardMedia aspect="square" className="mb-6">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue/10 to-navy/10 flex items-center justify-center">
-                  {capabilityIcons[capability.title] || capabilityIcons["Tactical UAVs"]}
-                </div>
+                {capability.title === "ISR Systems" ? (
+                  <Image
+                    src="/images/defence/isr-detail.png"
+                    alt="ISR Systems Detail"
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue/10 to-navy/10 flex items-center justify-center">
+                    {capabilityIcons[capability.title] || capabilityIcons["Tactical UAVs"]}
+                  </div>
+                )}
               </CardMedia>
               <h3 className="text-xl font-bold text-navy mb-2">{capability.title}</h3>
               <p className="text-slate leading-relaxed flex-1">{capability.description}</p>

@@ -4,7 +4,9 @@ category: plane
 categoryLabel: RC Aircraft
 summary: Modular fixed-wing platform built for training and payload trials.
 images:
-  - "/images/products/Aerowings-x1.webp"
+  - "/images/products/aerowing-x1-main.png"
+  - "/images/products/aerowing-x1-side.png"
+  - "/images/products/aerowing-x1-detail.png"
 specs:
   - label: Wingspan
     value: 1.8 m

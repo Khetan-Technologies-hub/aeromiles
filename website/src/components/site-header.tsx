@@ -49,12 +49,12 @@ export function SiteHeader() {
       className={[
         "fixed inset-x-0 top-0 z-[var(--z-header)] transition-all duration-500 ease-in-out",
         solid
-          ? "bg-navy/90 backdrop-blur-md py-3 shadow-lg"
-          : "bg-transparent py-5",
+          ? "bg-navy/90 backdrop-blur-md py-2 shadow-lg"
+          : "bg-transparent py-4",
       ].join(" ")}
     >
       <div
-        className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-6 transition-all duration-500"
+        className="mx-auto flex max-w-full items-center justify-between gap-4 px-6 transition-all duration-500"
       >
         <Link
           href="/"
@@ -63,13 +63,13 @@ export function SiteHeader() {
         >
           <div className="relative transition-transform duration-300 group-hover:scale-105">
             <Image
-              src={solid ? "/logo.png" : "/logo.png"}
+              src="/logo.png"
               alt="Aeromiles Logo"
               width={200}
               height={60}
               className={[
                 "h-auto w-auto object-contain transition-all duration-300",
-                solid ? "h-8 drop-shadow-[0_0_4px_rgba(255,255,255,0.3)]" : "h-12 drop-shadow-[0_0_12px_rgba(255,255,255,0.6)]",
+                solid ? "h-6 drop-shadow-[0_0_4px_rgba(255,255,255,0.3)]" : "h-10 drop-shadow-[0_0_12px_rgba(255,255,255,0.6)]",
               ].join(" ")}
               priority
             />
@@ -86,7 +86,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={[
-                  "relative inline-flex h-10 items-center rounded-full px-4 text-sm font-bold transition-all duration-300 whitespace-nowrap",
+                  "relative inline-flex h-6 items-center rounded-full px-3 text-xs font-bold transition-all duration-300 whitespace-nowrap",
                   solid
                     ? isActive(item.href)
                       ? "text-white bg-blue"

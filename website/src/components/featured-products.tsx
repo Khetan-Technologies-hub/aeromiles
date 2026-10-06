@@ -26,7 +26,7 @@ export function FeaturedProducts({ products }: FeaturedProductsProps) {
         </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {products.map((product, idx) => (
+          {products.slice(0, 3).map((product, idx) => (
             <Reveal key={product.slug} delay={idx * 0.1}>
               <Link
                 href={`/products/${product.slug}`}
@@ -62,7 +62,20 @@ export function FeaturedProducts({ products }: FeaturedProductsProps) {
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={0.4}>
+          <div className="mt-16 text-center">
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-navy text-white font-bold rounded-full hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-900/20 active:scale-95"
+            >
+              View All Products
+              <ArrowRightIcon className="h-5 w-5" />
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
+
 }

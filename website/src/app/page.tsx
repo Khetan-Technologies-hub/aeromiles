@@ -2,6 +2,7 @@ import { Hero } from "@/components/hero";
 import { AudiencePaths } from "@/components/audience-paths";
 import { ImpactStats } from "@/components/stats";
 import { FeaturedProducts } from "@/components/featured-products";
+import { EngineeringDetail } from "@/components/engineering-detail";
 import { EducationTeaser } from "@/components/education-teaser";
 import { DefenceTeaser } from "@/components/defence-teaser";
 import { FinalCTA } from "@/components/final-cta";
@@ -17,6 +18,7 @@ export default function Home() {
       <AudiencePaths paths={homeData.audiencePaths} />
       <ImpactStats />
       <FeaturedProducts products={featuredProducts} />
+      <EngineeringDetail />
       <EducationTeaser />
       <DefenceTeaser />
       <FinalCTA />

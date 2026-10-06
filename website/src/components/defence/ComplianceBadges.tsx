@@ -7,22 +7,22 @@ import { IndiaIcon, ShieldIcon, FileTextIcon, CheckIcon, PlaneIcon } from "@/com
 export function ComplianceBadges() {
   const certifications = [
     {
+      name: "ITAR-Free Design",
+      description: "No US export restrictions apply",
+      logo: <ShieldIcon className="h-10 w-10 text-blue" />
+    },
+    {
+      name: "DGCA Type Certified",
+      description: "Civil aviation regulatory standards",
+      logo: <PlaneIcon className="h-10 w-10 text-blue" />
+    },
+    {
       name: "Make in India",
       description: "Indigenous design & manufacturing",
       logo: <IndiaIcon className="h-10 w-10 text-blue" />
     },
     {
-      name: "DGCA Compliant",
-      description: "Civil aviation regulatory standards",
-      logo: <PlaneIcon className="h-10 w-10 text-blue" />
-    },
-    {
-      name: "ITAR-Free",
-      description: "No US export restrictions apply",
-      logo: <ShieldIcon className="h-10 w-10 text-blue" />
-    },
-    {
-      name: "AES-256 Encryption",
+      name: "AES-256 Comms",
       description: "Military-grade data protection",
       logo: <FileTextIcon className="h-10 w-10 text-blue" />
     },
