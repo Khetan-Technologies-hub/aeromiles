@@ -62,29 +62,29 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="bg-navy-900 text-white/70">
+    <footer className="bg-navy text-white/70">
       <div className="mx-auto max-w-[1200px] px-6 pb-7 pt-16">
         <CertificationGrid certifications={certifications} columns={4} className="mb-12" />
-        <div className="grid gap-9 md:grid-cols-[1.6fr_1fr_1fr]">
+        <div className="grid gap-12 md:grid-cols-[1.6fr_1fr_1fr]">
           {/* Brand */}
           <div className="flex flex-col">
-            <Link href="/" className="mb-4 flex items-center">
+            <Link href="/" className="mb-4 flex items-center group">
               <Image
                 src="/logo.png"
                 alt="Aeromiles Logo"
                 width={180}
                 height={50}
-                className="h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
               />
             </Link>
-            <p className="max-w-xs text-sm">{SITE.tagline}</p>
-            <ul className="mt-5 flex gap-2">
+            <p className="max-w-xs text-sm leading-relaxed">{SITE.tagline}</p>
+            <ul className="mt-6 flex gap-3">
               {SOCIALS.map((s) => (
                 <li key={s.label}>
                   <a
                     href={s.href}
                     aria-label={s.label}
-                    className="focus-ring-light flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white/90 transition-colors hover:border-white/60 hover:text-white"
+                    className="focus-ring-light flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/80 transition-all duration-300 hover:border-white/60 hover:text-white hover:bg-white/5"
                   >
                     <SocialIcon icon={s.icon} />
                   </a>
@@ -94,11 +94,11 @@ export function SiteFooter() {
           </div>
 
           {/* Quick links */}
-          <div>
-            <h2 className="mb-4 text-sm font-semibold tracking-wide text-white">
+          <div className="flex flex-col">
+            <h2 className="mb-5 text-sm font-bold tracking-wider text-white uppercase">
               Quick links
             </h2>
-            <ul>
+            <ul className="flex flex-col gap-3">
               {NAV_ITEMS.map((item) => (
                 <li key={item.href}>
                   <Link
@@ -113,38 +113,43 @@ export function SiteFooter() {
           </div>
 
           {/* Contact */}
-          <div>
-            <h2 className="mb-4 text-sm font-semibold tracking-wide text-white">
+          <div className="flex flex-col">
+            <h2 className="mb-5 text-sm font-bold tracking-wider text-white uppercase">
               Contact
             </h2>
-            <ul className="text-sm">
-              <li>
+            <ul className="flex flex-col gap-3 text-sm">
+              <li className="flex min-h-11 items-center">
                 <a
                   href={`mailto:${CONTACT.email}`}
-                  className="focus-ring-light flex min-h-11 items-center transition-colors hover:text-white"
+                  className="focus-ring-light transition-colors hover:text-white"
                 >
                   {CONTACT.email}
                 </a>
               </li>
-              <li className="flex min-h-11 items-center">{CONTACT.location}</li>
-              <li>
+              <li className="flex min-h-11 items-center opacity-90">
+                {CONTACT.location}
+              </li>
+              <li className="mt-2">
                 <Link
                   href={CONTACT.inquiryHref}
-                  className="focus-ring-light group inline-flex min-h-11 items-center gap-2 font-semibold text-blue transition-colors hover:text-white"
+                  className="focus-ring-light group inline-flex items-center gap-2 font-bold text-blue transition-all duration-300 hover:text-white"
                 >
                   Start an inquiry
-                  <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-1" />
+                  <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-11 flex flex-wrap justify-between gap-4 border-t border-white/15 pt-6 text-xs text-white/70">
+        <div className="mt-12 flex flex-wrap justify-between items-center gap-4 border-t border-white/10 pt-8 text-xs text-white/50">
           <span>
             © {year} {SITE.name}. All rights reserved.
           </span>
-          <span>Privacy · Terms</span>
+          <div className="flex gap-4">
+            <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
+          </div>
         </div>
       </div>
     </footer>
