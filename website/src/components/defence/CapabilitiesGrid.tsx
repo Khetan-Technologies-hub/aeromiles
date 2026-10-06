@@ -51,7 +51,7 @@ export function CapabilitiesGrid({ capabilities }: CapabilitiesGridProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {capabilities.map((capability, idx) => (
           <Reveal key={capability.slug} delay={idx * 0.1}>
-            <Card hoverLift className="h-full flex flex-col">
+            <Card hoverLift className="h-full flex flex-col bg-white border-navy/20">
               <CardMedia aspect="square" className="mb-6">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue/10 to-navy/10 flex items-center justify-center">
                   {capabilityIcons[capability.title] || capabilityIcons["Tactical UAVs"]}

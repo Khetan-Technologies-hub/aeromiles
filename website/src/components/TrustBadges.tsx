@@ -67,7 +67,7 @@ export function TrustBadges({
           {badges.map((badge, idx) => (
             <div
               key={idx}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 text-white/80 text-sm font-medium transition-colors hover:border-white/40 hover:bg-white/10"
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/60 bg-white/20 text-white text-sm font-bold transition-colors hover:border-white hover:bg-white/30"
               role="listitem"
             >
               <span className="text-blue">{typeIcons[badge.type]}</span>
