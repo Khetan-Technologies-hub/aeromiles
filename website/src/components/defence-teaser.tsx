@@ -30,14 +30,14 @@ export function DefenceTeaser() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <Reveal delay={0.2}>
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-               <Image
-                 src="/images/defence-teaser.webp"
-                 alt="An Aeromiles fixed-wing UAV on a field launch rail"
-                 fill
-                 sizes="(min-width: 1024px) 50vw, 100vw"
-                 className="object-cover opacity-80"
-               />
-               <div className="absolute inset-0 bg-gradient-to-r from-navy-900 via-transparent to-transparent" />
+                <Image
+                  src="/images/defence/tactical-uav-capability.png"
+                  alt="An Aeromiles fixed-wing UAV on a field launch rail"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover opacity-80"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-navy-900 via-transparent to-transparent" />
             </div>
           </Reveal>
 

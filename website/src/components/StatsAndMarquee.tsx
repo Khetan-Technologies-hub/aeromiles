@@ -58,19 +58,6 @@ export function StatsAndMarquee({
           </div>
         </div>
       </div>
-
-      {/* Divider */}
-      <div className="h-px bg-white/10" />
-
-      {/* Marquee Section */}
-      <div className="py-8">
-        <div className="mb-6 sm:mb-8 text-center">
-          <h2 className="text-lg sm:text-xl font-display font-bold text-white/80 uppercase tracking-wider">
-            {title}
-          </h2>
-        </div>
-        <LogoMarquee logos={logos} speed={marqueeSpeed} />
-      </div>
     </section>
   );
 }

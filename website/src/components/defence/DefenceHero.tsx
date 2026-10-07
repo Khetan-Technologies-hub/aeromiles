@@ -29,7 +29,7 @@ export function DefenceHero() {
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl mb-6 max-w-3xl">
             Capability shaped<br />by the mission.
           </h1>
-          <p className="mx-auto max-w-2xl text-lg text-white/90 sm:text-xl leading-relaxed mb-10">
+          <p className="max-w-2xl text-lg text-white/90 sm:text-xl leading-relaxed mb-10">
             Providing high-reliability unmanned systems and indigenous drone capability designed for rigorous defence and government requirements.
           </p>
           <Link

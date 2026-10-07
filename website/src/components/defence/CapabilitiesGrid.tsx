@@ -54,17 +54,41 @@ export function CapabilitiesGrid({ capabilities }: CapabilitiesGridProps) {
           <Reveal key={capability.slug} delay={idx * 0.1}>
             <Card hoverLift className="h-full flex flex-col bg-white border-navy/20">
               <CardMedia aspect="square" className="mb-6">
-                {capability.title === "ISR Systems" ? (
+                {capability.title === "ISR & Survey" ? (
                   <Image
-                    src="/images/defence/isr-detail.png"
-                    alt="ISR Systems Detail"
+                    src="/images/defence/isr.png"
+                    alt="ISR & Survey Detail"
+                    fill
+                    className="object-cover"
+                  />
+                ) : capability.title === "Quality & Compliance" ? (
+                  <Image
+                    src="/images/defence/quality.png"
+                    alt="Quality & Compliance Detail"
+                    fill
+                    className="object-cover"
+                  />
+                ) : capability.title === "Modular Payloads" ? (
+                  <Image
+                    src="/images/defence/payload.png"
+                    alt="Modular Payloads Detail"
+                    fill
+                    className="object-cover"
+                  />
+                ) : capability.title === "Lifecycle Support" ? (
+                  <Image
+                    src="/images/defence/life.png"
+                    alt="Lifecycle Support Detail"
                     fill
                     className="object-cover"
                   />
                 ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue/10 to-navy/10 flex items-center justify-center">
-                    {capabilityIcons[capability.title] || capabilityIcons["Tactical UAVs"]}
-                  </div>
+                  <Image
+                    src="/images/defence/tactical-uav-capability.png"
+                    alt={capability.title}
+                    fill
+                    className="object-cover"
+                  />
                 )}
               </CardMedia>
               <h3 className="text-xl font-bold text-navy mb-2">{capability.title}</h3>
