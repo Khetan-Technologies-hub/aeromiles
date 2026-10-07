@@ -119,9 +119,11 @@ export function ToastContainer({ toasts, onClose }: ToastContainerProps) {
 /** Hook for managing toasts */
 export function useToast() {
   const [toasts, setToasts] = useState<Array<{ id: string; type: ToastType; title: string; message?: string }>>([]);
+  const [counter, setCounter] = useState(0);
 
   const addToast = (type: ToastType, title: string, message?: string, duration?: number) => {
-    const id = Math.random().toString(36).slice(2, 9);
+    const id = `toast-${Date.now()}-${counter}`;
+    setCounter((prev) => prev + 1);
     setToasts((prev) => [...prev, { id, type, title, message }]);
     if (duration !== 0) {
       setTimeout(() => {
