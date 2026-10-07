@@ -1,4 +1,6 @@
 import Script from "next/script";
+import { useState, useEffect } from "react";
+import { getConsent } from "@/lib/consent";
 
 /**
  * Google Analytics 4 slot. Renders nothing unless NEXT_PUBLIC_GA_ID is set
@@ -6,8 +8,23 @@ import Script from "next/script";
  * The measurement ID is public by design.
  */
 export function Analytics() {
+  const [hasConsent, setHasConsent] = useState<boolean>(false);
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
-  if (!gaId) return null;
+
+  useEffect(() => {
+    const checkConsent = () => {
+      const consent = getConsent();
+      if (consent === true) {
+        setHasConsent(true);
+      }
+    };
+
+    checkConsent();
+    window.addEventListener("consent_updated", checkConsent);
+    return () => window.removeEventListener("consent_updated", checkConsent);
+  }, []);
+
+  if (!gaId || !hasConsent) return null;
 
   return (
     <>
@@ -26,3 +43,5 @@ export function Analytics() {
     </>
   );
 }
+
+

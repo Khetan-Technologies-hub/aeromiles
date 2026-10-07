@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Analytics } from "@/components/analytics";
 import { ToastProvider } from "@/components/Toast";
+import { ConsentBanner } from "@/components/ConsentBanner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </ToastProvider>
         <SiteFooter />
         <Analytics />
+        <ConsentBanner />
       </body>
     </html>
   );
