@@ -12,6 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "defence/",
     "education/",
     "products/",
+    "privacy/",
+    "terms/",
   ];
 
   const productSlugs = ["aerowing-x1", "sentinel-vtol", "vector-quad"];

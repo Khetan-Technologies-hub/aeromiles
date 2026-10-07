@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, FormEvent, useEffect } from "react";
+import { Suspense, useCallback, useState, FormEvent, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { FormField, FormSelect } from "@/components/FormField";
 import { useToast } from "@/components/Toast";
@@ -22,8 +22,24 @@ const PRODUCT_OPTIONS = [
 
 const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "";
 
-export function ContactForm() {
+function ProductQueryPrefill({
+  onProductChange,
+}: {
+  onProductChange: (product: string) => void;
+}) {
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const productQuery = searchParams.get("product");
+    if (productQuery && PRODUCT_OPTIONS.some((option) => option.value === productQuery)) {
+      onProductChange(productQuery);
+    }
+  }, [onProductChange, searchParams]);
+
+  return null;
+}
+
+export function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,19 +48,12 @@ export function ContactForm() {
     product: "",
     message: "",
   });
+  const prefillProduct = useCallback((product: string) => {
+    setFormData((prev) => ({ ...prev, product }));
+  }, []);
   const [errors, setErrors] = useState<Partial<typeof formData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { success, error: toastError } = useToast();
-
-  useEffect(() => {
-    const productQuery = searchParams.get("product");
-    if (productQuery) {
-      const isValidProduct = PRODUCT_OPTIONS.some(opt => opt.value === productQuery);
-      if (isValidProduct) {
-        setFormData(prev => ({ ...prev, product: productQuery }));
-      }
-    }
-  }, [searchParams]);
 
   const validate = () => {
     const newErrors: Partial<typeof formData> = {};
@@ -105,6 +114,9 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+      <Suspense fallback={null}>
+        <ProductQueryPrefill onProductChange={prefillProduct} />
+      </Suspense>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
           label="Full name"
