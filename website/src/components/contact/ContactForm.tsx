@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { FormField, FormSelect } from "@/components/FormField";
 import { useToast } from "@/components/Toast";
 
@@ -22,6 +23,7 @@ const PRODUCT_OPTIONS = [
 const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "";
 
 export function ContactForm() {
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -33,6 +35,16 @@ export function ContactForm() {
   const [errors, setErrors] = useState<Partial<typeof formData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { success, error: toastError } = useToast();
+
+  useEffect(() => {
+    const productQuery = searchParams.get("product");
+    if (productQuery) {
+      const isValidProduct = PRODUCT_OPTIONS.some(opt => opt.value === productQuery);
+      if (isValidProduct) {
+        setFormData(prev => ({ ...prev, product: productQuery }));
+      }
+    }
+  }, [searchParams]);
 
   const validate = () => {
     const newErrors: Partial<typeof formData> = {};
