@@ -1,6 +1,7 @@
 import { Hero } from "@/components/hero";
 import { AudiencePaths } from "@/components/audience-paths";
 import { ImpactStats } from "@/components/stats";
+import { StatsAndMarquee } from "@/components/StatsAndMarquee";
 import { FeaturedProducts } from "@/components/featured-products";
 import { EngineeringDetail } from "@/components/engineering-detail";
 import { EducationTeaser } from "@/components/education-teaser";
@@ -17,6 +18,7 @@ export default function Home() {
       <Hero homeData={homeData} />
       <AudiencePaths paths={homeData.audiencePaths} />
       <ImpactStats />
+      <StatsAndMarquee />
       <FeaturedProducts products={featuredProducts} />
       <EngineeringDetail />
       <EducationTeaser />
