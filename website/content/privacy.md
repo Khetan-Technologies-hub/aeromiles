@@ -26,4 +26,4 @@ We do not sell, rent, or trade your personal data to third parties. Your informa
 We use **Web3Forms** for our contact forms and **Google Analytics 4** for site traffic analysis. These services have their own privacy policies which we encourage you to review.
 
 ## 5. Your Rights
-You have the right to request access to the data we hold about you or to request its deletion. To do so, please contact us at **hello@aeromiles.in**.
+You have the right to request access to the data we hold about you or to request its deletion. To do so, please contact us at **contact@aeromiles.in**.

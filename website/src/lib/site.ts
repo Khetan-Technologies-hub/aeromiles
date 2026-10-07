@@ -14,7 +14,7 @@ export const NAV_ITEMS: NavItem[] = [
 ];
 
 export const CONTACT = {
-  email: "hello@aeromiles.in",
+  email: "contact@aeromiles.in",
   location: "India",
   inquiryHref: "/contact",
 } as const;

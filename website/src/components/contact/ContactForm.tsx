@@ -85,7 +85,7 @@ export function ContactForm() {
         throw new Error(result.message || "Form submission failed");
       }
     } catch {
-      toastError("Submission failed", "Please try again or email us directly at hello@aeromiles.in");
+      toastError("Submission failed", "Please try again or email us directly at contact@aeromiles.in");
     } finally {
       setIsSubmitting(false);
     }
