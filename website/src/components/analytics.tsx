@@ -1,3 +1,5 @@
+"use client";
+
 import Script from "next/script";
 import { useState, useEffect } from "react";
 import { getConsent } from "@/lib/consent";
@@ -43,5 +45,4 @@ export function Analytics() {
     </>
   );
 }
-
 
