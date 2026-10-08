@@ -1,11 +1,14 @@
 import React from "react";
-import { getTeamMembers } from "@/lib/team";
+import { getTeamMembers, TeamMemberSchema } from "@/lib/team";
+import { getMilestones } from "@/lib/milestones";
 import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
 import Image from "next/image";
+import Timeline from "@/components/about/Timeline";
 
 export default async function AboutPage() {
   const team = await getTeamMembers();
+  const milestones = (await getMilestones()).map(m => m.metadata);
 
   return (
     <main className="min-h-screen bg-white">
@@ -27,6 +30,20 @@ export default async function AboutPage() {
           </motion.div>
         </div>
         <div className="absolute top-0 left-0 w-1/3 h-full bg-blue-600/10 blur-3xl rounded-full -translate-y-1/2 -translate-x-1/4" />
+      </section>
+
+      {/* Timeline Section */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy mb-4">Our Journey</h2>
+            <div className="w-20 h-1 bg-blue-600 mx-auto" />
+            <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
+              A timeline of the milestones that have shaped Aeromiles and our commitment to aerospace excellence.
+            </p>
+          </div>
+          <Timeline milestones={milestones} />
+        </div>
       </section>
 
       {/* Team Section */}
