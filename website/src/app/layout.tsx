@@ -7,6 +7,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { Analytics } from "@/components/analytics";
 import { ToastProvider } from "@/components/Toast";
 import { ConsentBanner } from "@/components/ConsentBanner";
+import Nav from "@/components/layout/Nav";
+import Footer from "@/components/layout/Footer";
+
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,6 +24,7 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://aeromiles.in"),
   title: {
     default: "Aeromiles | Pioneering RC Planes, Drones & STEM Labs",
     template: "%s · Aeromiles",
@@ -48,11 +52,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <a href="#main" className="skip-link">
           Skip to main content
         </a>
-        <SiteHeader />
+        <Nav />
         <ToastProvider>
           {children}
         </ToastProvider>
-        <SiteFooter />
+        <Footer />
         <Analytics />
         <ConsentBanner />
       </body>
