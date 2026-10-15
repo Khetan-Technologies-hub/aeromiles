@@ -44,7 +44,7 @@ export function StatsAndMarquee({
   return (
     <section className="w-full bg-navy">
       {/* Stats Row */}
-      <div className="px-6 py-16 sm:py-24 lg:py-28">
+      <div className="px-6 py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16">
             {stats.map((stat) => (
