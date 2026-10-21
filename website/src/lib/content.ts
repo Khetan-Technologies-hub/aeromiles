@@ -1,8 +1,8 @@
 import "server-only";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import matter from "gray-matter";
 import { z } from "zod";
+import { parseFrontmatter } from "./frontmatter";
 
 /**
  * Content engine: reads Markdown files with typed frontmatter from `content/`,
@@ -105,7 +105,7 @@ export function getPageContent(slug: string) {
   const filePath = join(CONTENT_DIR, `${slug}.md`);
   try {
     const raw = readFileSync(filePath, "utf8");
-    const { data, content } = matter(raw);
+    const { data, content } = parseFrontmatter(raw);
     return { ...data, body: content };
   } catch {
     return null;
@@ -121,7 +121,7 @@ export function getValidatedPageContent<S extends z.ZodType>(
 ): z.infer<S> {
   const filePath = join(CONTENT_DIR, `${slug}.md`);
   const raw = readFileSync(filePath, "utf8");
-  const { data } = matter(raw);
+  const { data } = parseFrontmatter(raw);
   const parsed = schema.safeParse(data);
   if (!parsed.success) {
     throw new Error(`Invalid frontmatter in content/${slug}.md`);
@@ -148,7 +148,7 @@ function loadCollection<S extends z.ZodType>(
 
   return files.map((file) => {
     const raw = readFileSync(join(folder, file), "utf8");
-    const { data } = matter(raw);
+    const { data } = parseFrontmatter(raw);
     const parsed = schema.safeParse(data);
     if (!parsed.success) {
       const issues = parsed.error.issues

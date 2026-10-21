@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
   const team = await getTeamMembers();
-  const milestones = (await getMilestones()).map(m => m.metadata);
+  const milestones = await getMilestones();
 
   return (
     <main className="min-h-screen bg-white">

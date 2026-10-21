@@ -3,15 +3,18 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CheckIcon, SchoolIcon, UsersIcon, CertificateIcon } from "@/components/icons";
+import type { FC, SVGProps } from "react";
 import { LabProgram } from "@/lib/content";
 import { LabOfferingCard } from "./LabOfferingCard";
+
+type IconComponent = FC<SVGProps<SVGSVGElement>>;
 
 interface EducationLabOfferingsProps {
   programs: LabProgram[];
 }
 
 export default function EducationLabOfferings({ programs }: EducationLabOfferingsProps) {
-  const programIcons: Record<string, any> = {
+  const programIcons: Record<string, IconComponent> = {
     "k12-lab": SchoolIcon,
     "college-lab": UsersIcon,
     "teacher-training": CertificateIcon,

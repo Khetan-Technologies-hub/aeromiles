@@ -16,6 +16,9 @@ export function StatCounter({ end, label, suffix = "", duration = 2.5 }: StatCou
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {
@@ -26,12 +29,10 @@ export function StatCounter({ end, label, suffix = "", duration = 2.5 }: StatCou
       { threshold: 0.1 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    observer.observe(element);
 
     return () => {
-      if (ref.current) observer.unobserve(ref.current);
+      observer.unobserve(element);
     };
   }, [hasAnimated]);
 

@@ -23,14 +23,6 @@ export default function ProductGallery({
   const [slideDirection, setSlideDirection] = useState<"left" | "right">("right");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  if (!images || images.length === 0) {
-    return (
-      <div className="aspect-square bg-slate-100 flex items-center justify-center rounded-xl border border-slate-200 text-slate-400">
-        No images available
-      </div>
-    );
-  }
-
   const nextImage = useCallback((e?: React.MouseEvent) => {
     e?.stopPropagation();
     setSlideDirection("right");
@@ -73,6 +65,14 @@ export default function ProductGallery({
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
+
+  if (!images || images.length === 0) {
+    return (
+      <div className="aspect-square bg-slate-100 flex items-center justify-center rounded-xl border border-slate-200 text-slate-400">
+        No images available
+      </div>
+    );
+  }
 
   return (
     <div

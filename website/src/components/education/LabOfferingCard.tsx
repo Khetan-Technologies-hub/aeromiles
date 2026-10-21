@@ -4,11 +4,14 @@ import { motion, useReducedMotion } from "framer-motion";
 import { LabProgram } from "@/lib/content";
 import Link from "next/link";
 import { ArrowRightIcon } from "@/components/icons";
+import type { FC, SVGProps } from "react";
+
+type IconComponent = FC<SVGProps<SVGSVGElement>>;
 
 interface LabOfferingCardProps {
   program: LabProgram;
   index: number;
-  icons: Record<string, any>;
+  icons: Record<string, IconComponent>;
 }
 
 export function LabOfferingCard({ program, index, icons }: LabOfferingCardProps) {

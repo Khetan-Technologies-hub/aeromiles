@@ -1,7 +1,7 @@
 import { z } from "zod";
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+import { parseFrontmatter } from "./frontmatter";
 
 export const MilestoneSchema = z.object({
   date: z.string(),
@@ -14,13 +14,13 @@ export async function getMilestones() {
   const dirPath = path.join(process.cwd(), "content/milestones");
   if (!fs.existsSync(dirPath)) return [];
 
-  const files = fs.readdirSync(dirPath).filter(file => file.endsWith(".mdx"));
+  const files = fs.readdirSync(dirPath).filter((file) => file.endsWith(".mdx"));
 
   const milestones = await Promise.all(
     files.map(async (file) => {
       const filePath = path.join(dirPath, file);
       const fileContent = fs.readFileSync(filePath, "utf8");
-      const { data } = matter(fileContent);
+      const { data } = parseFrontmatter(fileContent);
 
       return {
         slug: file.replace(".mdx", ""),

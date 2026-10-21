@@ -5,8 +5,12 @@ import { useEffect, useRef } from "react";
 import { Reveal } from "./reveal";
 import { TrustBadges } from "./TrustBadges";
 import Link from "next/link";
+import { homeSchema } from "@/lib/content";
+import type { z } from "zod";
 
-export function Hero({ homeData }: { homeData: any }) {
+type HomeData = z.infer<typeof homeSchema>;
+
+export function Hero({ homeData }: { homeData: HomeData }) {
   const prefersReduced = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -114,7 +118,7 @@ export function Hero({ homeData }: { homeData: any }) {
 
       <Reveal delay={0.32} className="relative z-10 w-full">
         <ul className="mx-auto flex max-w-[1200px] flex-col items-center justify-center gap-4 px-6 pb-10 sm:flex-row sm:gap-x-16">
-          {homeData.hero.facts.map((fact: any, idx: number) => (
+          {homeData.hero.facts.map((fact: { label: string; value: string }, idx: number) => (
             <li key={idx} className="flex items-center gap-3">
               <span className="h-1.5 w-1.5 rounded-full bg-blue" aria-hidden />
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-white/80">

@@ -49,7 +49,7 @@ export function EngineeringDetail() {
 
             <Reveal delay={0.2}>
               <p className="text-lg text-slate-600 leading-relaxed">
-                We don't just assemble; we engineer. From precision-milled aerospace
+                We don&apos;t just assemble; we engineer. From precision-milled aerospace
                 aluminum to high-modulus carbon fiber, our components are designed
                 for extreme reliability in the most demanding environments.
               </p>

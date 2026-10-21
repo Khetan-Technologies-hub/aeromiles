@@ -10,7 +10,8 @@ export function ConsentBanner() {
   useEffect(() => {
     const consent = getConsent();
     if (consent === null) {
-      setIsVisible(true);
+      // Use setTimeout to avoid synchronous setState in effect
+      setTimeout(() => setIsVisible(true), 0);
     }
   }, []);
 
@@ -38,8 +39,8 @@ export function ConsentBanner() {
         >
           <div className="max-w-4xl mx-auto bg-navy text-white p-6 rounded-t-2xl shadow-2xl border-t border-x border-blue-600/30 pointer-events-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm md:text-base leading-relaxed">
-              We use cookies to improve your experience and analyze our traffic. 
-              By clicking "Accept", you agree to our use of Google Analytics.
+              We use cookies to improve your experience and analyze our traffic.
+              By clicking &ldquo;Accept&rdquo;, you agree to our use of Google Analytics.
             </div>
             <div className="flex gap-3 shrink-0">
               <button
