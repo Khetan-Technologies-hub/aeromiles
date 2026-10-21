@@ -5,12 +5,8 @@ import { useEffect, useRef } from "react";
 import { Reveal } from "./reveal";
 import { TrustBadges } from "./TrustBadges";
 import Link from "next/link";
-import { homeSchema } from "@/lib/content";
-import type { z } from "zod";
 
-type HomeData = z.infer<typeof homeSchema>;
-
-export function Hero({ homeData }: { homeData: HomeData }) {
+export function Hero({ homeData }: { homeData: any }) {
   const prefersReduced = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -58,7 +54,7 @@ export function Hero({ homeData }: { homeData: HomeData }) {
           loop
           playsInline
           preload="metadata"
-          poster="/images/home-hero.png"
+          poster="/images/hero-poster.webp"
           tabIndex={-1}
           className="h-full w-full object-cover"
         >
@@ -118,7 +114,7 @@ export function Hero({ homeData }: { homeData: HomeData }) {
 
       <Reveal delay={0.32} className="relative z-10 w-full">
         <ul className="mx-auto flex max-w-[1200px] flex-col items-center justify-center gap-4 px-6 pb-10 sm:flex-row sm:gap-x-16">
-          {homeData.hero.facts.map((fact: { label: string; value: string }, idx: number) => (
+          {homeData.hero.facts.map((fact: any, idx: number) => (
             <li key={idx} className="flex items-center gap-3">
               <span className="h-1.5 w-1.5 rounded-full bg-blue" aria-hidden />
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-white/80">
@@ -131,6 +127,15 @@ export function Hero({ homeData }: { homeData: HomeData }) {
 
       <Reveal delay={0.4} className="relative z-10 w-full pb-10">
         <TrustBadges badges={homeData.hero.trustBadges.map((badge: string) => ({ label: badge, type: "certification" as const }))} variant="grid" />
+      </Reveal>
+
+      <Reveal delay={0.5} className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/50">
+        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="h-6 w-px bg-gradient-to-b from-white/50 to-transparent"
+        />
       </Reveal>
     </section>
   );
